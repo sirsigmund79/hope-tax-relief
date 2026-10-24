@@ -13,3 +13,5 @@ Decisions, shortcuts, and known gaps (one line each).
 - Known gap: live extraction accuracy on the samples is unverified (no API key here). Run `npm run probe` and one live pass before demoing.
 - Known gap: the retry sends a `model` turn back to Gemma; if the chosen model id rejects multi-turn, the retry fails and we fall back to manual entry (safe, just less magic).
 - Known gap: no automated UI tests in the repo; the Playwright demo checks were run ad hoc during the build.
+- Probe script wraps its body in main() (tsx runs .ts as CommonJS here, so top-level await fails) and loads .env.local via @next/env.
+- Model-call errors are logged server-side (API message only, SSN-masked) and shown in the UI outside production, to make key/model-id problems diagnosable.

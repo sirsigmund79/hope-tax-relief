@@ -66,7 +66,10 @@ describe("extractWithModel", () => {
 
   it("network error → ok:false, never throws", async () => {
     const gen: Generate = () => Promise.reject(new Error("ECONNRESET"));
-    expect((await extractWithModel(gen, image)).ok).toBe(false);
+    const r = await extractWithModel(gen, image);
+    expect(r.ok).toBe(false);
+    // Outside production the underlying API error is shown so setup problems are diagnosable.
+    if (!r.ok) expect(r.reason).toContain("ECONNRESET");
   });
 
   it("masks SSNs that slip into the reply", async () => {

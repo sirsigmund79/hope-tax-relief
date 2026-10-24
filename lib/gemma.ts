@@ -1,7 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 import { Extraction, type ExtractResult } from "./schema";
 import { fixtureFor } from "./fixtures";
-import { maskDeep } from "./mask";
+import { maskDeep, maskSsn } from "./mask";
 
 export const PROMPT = `You are reading a photo of a US financial document for a property tax exemption application.
 Return ONLY a JSON object, no prose, no markdown, with exactly these keys:
@@ -97,9 +97,15 @@ export async function extractWithModel(
       timeoutMs,
     );
   } catch (e) {
-    const reason = e instanceof Error && e.message === "timeout"
-      ? "The document reader took too long"
-      : "The document reader is unavailable";
+    if (e instanceof Error && e.message === "timeout") {
+      return { ok: false, reason: "The document reader took too long", partial: {} };
+    }
+    // Log the API error (status, message) only. Never the image or extracted data.
+    const detail = maskSsn(String(e instanceof Error ? e.message : e)).slice(0, 300);
+    console.error("[extract] model call failed:", detail);
+    const reason = process.env.NODE_ENV === "production"
+      ? "The document reader is unavailable"
+      : `The document reader is unavailable (${detail})`;
     return { ok: false, reason, partial: {} };
   }
 }
