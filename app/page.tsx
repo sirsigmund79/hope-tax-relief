@@ -99,7 +99,12 @@ export default function Home() {
       {step === "household" && (
         <>
           <HouseholdForm value={household} onChange={(p) => setHousehold((h) => ({ ...h, ...p }))} />
-          <div className="mt-4"><IllustrativeBanner /></div>
+          <div className="mt-4 space-y-3">
+            <IllustrativeBanner />
+            <p className="text-center text-xs text-slate-500">
+              Trying it out? Use the <a href="/samples" className="underline">sample documents</a>.
+            </p>
+          </div>
         </>
       )}
 
