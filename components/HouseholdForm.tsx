@@ -26,6 +26,7 @@ export default function HouseholdForm({
     if (d.taxBillAmount != null) patch.currentTaxBill = String(d.taxBillAmount);
     if (d.delinquentAmount != null) patch.delinquentAmount = String(d.delinquentAmount);
     if (d.preExemptionPercent != null) patch.preExemptionPercent = String(d.preExemptionPercent);
+    if (d.parcelNumber) patch.parcelNumber = d.parcelNumber;
     onChange(patch);
     if (r.ok && d.docType === "TAX_BILL" && Object.keys(patch).length > 1) {
       const issues = r.data.issues.length ? ` Note: ${r.data.issues.join("; ")}` : "";
@@ -39,19 +40,24 @@ export default function HouseholdForm({
   const assets = num(value.liquidAssets);
   const overAssets = assets !== null && assets > ASSET_CAP;
 
-  const set = (k: keyof HouseholdState) => (e: React.ChangeEvent<HTMLInputElement>) => onChange({ [k]: e.target.value });
+  type TextKey = { [K in keyof HouseholdState]: HouseholdState[K] extends string ? K : never }[keyof HouseholdState];
+  const set = (k: TextKey) => (e: React.ChangeEvent<HTMLInputElement>) => onChange({ [k]: e.target.value });
 
   return (
     <div className="space-y-4">
       <Card className="space-y-4">
         <h2 className="text-lg font-semibold">Your household</h2>
-        <Field label="Home address" placeholder="1234 Example St, Detroit, MI" value={value.address} onChange={set("address")} autoComplete="street-address" />
+        <Field label="Home address" placeholder="1234 Example St, Detroit, MI 48200" value={value.address} onChange={set("address")} autoComplete="street-address" />
+        <div className="grid grid-cols-2 gap-3">
+          <Field label="Daytime phone" type="tel" placeholder="313-555-0100" value={value.phone} onChange={set("phone")} autoComplete="tel" />
+          <Field label="Email (optional)" type="email" value={value.email} onChange={set("email")} autoComplete="email" />
+        </div>
         <div className="grid grid-cols-2 gap-3">
           <Field label="People in home" inputMode="numeric" value={value.householdSize} onChange={set("householdSize")} />
           <Field label="Adults (18+)" inputMode="numeric" value={value.adultCount} onChange={set("adultCount")} />
         </div>
         <Field
-          label="Cash & savings (all adults)"
+          label="Savings & other assets (everyone in the home)"
           inputMode="decimal"
           placeholder="$0"
           value={value.liquidAssets}
@@ -62,10 +68,22 @@ export default function HouseholdForm({
                 Over the {usd(ASSET_CAP)} limit. You likely won&apos;t qualify unless this amount is lower. You can still build your packet.
               </span>
             ) : (
-              "Checking, savings, and cash on hand. Not your house or car."
+              "Bank accounts, cash, stocks, bonds, IRAs, other property, boats, campers. Not this home."
             )
           }
         />
+        <label className="flex gap-3 rounded-lg border border-slate-200 p-3 text-sm">
+          <input
+            type="checkbox"
+            className="mt-0.5 h-5 w-5 shrink-0"
+            checked={value.hardship}
+            onChange={(e) => onChange({ hardship: e.target.checked })}
+          />
+          <span>
+            <b>Household income dropped 20% or more</b>, or the home is in <b>property tax foreclosure</b>.
+            <span className="block text-xs text-slate-500">Only needed for the 10% exemption tier.</span>
+          </span>
+        </label>
       </Card>
 
       <Card className="space-y-4">
@@ -84,6 +102,7 @@ export default function HouseholdForm({
         )}
         <Field label="Current tax bill (per year)" inputMode="decimal" placeholder="$0" value={value.currentTaxBill} onChange={set("currentTaxBill")} />
         <Field label="Past-due (delinquent) taxes" inputMode="decimal" placeholder="$0" value={value.delinquentAmount} onChange={set("delinquentAmount")} hint="Leave blank if you're caught up." />
+        <Field label="Parcel number" placeholder="On your tax bill" value={value.parcelNumber} onChange={set("parcelNumber")} hint="Goes on your application. Scanning your bill fills it in." />
         <Field label="PRE % on your bill" inputMode="numeric" placeholder="100" value={value.preExemptionPercent} onChange={set("preExemptionPercent")} hint="Principal Residence Exemption. Usually 100% if you live here." />
       </Card>
     </div>

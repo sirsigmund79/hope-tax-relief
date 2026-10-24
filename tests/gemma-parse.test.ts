@@ -87,3 +87,11 @@ describe("fixtureFor", () => {
     expect(fixtureFor("IMG_0001.jpg").docType).toBe("W2");
   });
 });
+
+describe("schema defaults", () => {
+  it("accepts replies from models that omit the newer optional keys", () => {
+    const { employerName: _e, parcelNumber: _p, ...older } = fixtures.ssa;
+    const r = parseExtraction(JSON.stringify(older));
+    expect(r.ok && r.data.parcelNumber).toBeNull();
+  });
+});

@@ -4,7 +4,8 @@ import { useRef } from "react";
 import { extractFile } from "@/lib/extractClient";
 import type { DocType, ExtractResult } from "@/lib/schema";
 import { Button, Card, ConfidenceBadge } from "./ui";
-import { DOC_LABELS, INCOME_DOCS, newId, type AdultState, type DocEntry } from "./types";
+import { DOC_LABELS, INCOME_DOCS, defaultFiled, newId, type AdultState, type DocEntry } from "./types";
+import { INCOME_YEAR } from "@/lib/config";
 
 export function UploadButton({
   onFile,
@@ -50,6 +51,7 @@ function entryFromResult(id: string, filename: string, r: ExtractResult, preview
       docType: d.docType,
       income: d.annualIncome === null ? "" : String(d.annualIncome),
       personName: d.personName,
+      employerName: d.employerName,
       confidence: d.confidence,
       previewUrl,
       issues: notIncome
@@ -67,6 +69,7 @@ function entryFromResult(id: string, filename: string, r: ExtractResult, preview
     docType: p.docType ?? "W2",
     income: p.annualIncome == null ? "" : String(p.annualIncome),
     personName: p.personName ?? null,
+    employerName: p.employerName ?? null,
     confidence: null,
     issues: p.issues ?? [],
     failedReason: r.reason,
@@ -99,6 +102,7 @@ export default function DocUploader({
       docType: "OTHER",
       income: "",
       personName: null,
+      employerName: null,
       confidence: null,
       issues: [],
     };
@@ -121,7 +125,7 @@ export default function DocUploader({
       ...a,
       docs: [
         ...a.docs,
-        { id: newId(), filename: "", status: "done", manual: true, docType: "W2", income: "", personName: null, confidence: null, issues: [] },
+        { id: newId(), filename: "", status: "done", manual: true, docType: "W2", income: "", personName: null, employerName: null, confidence: null, issues: [] },
       ],
     }));
   }
@@ -211,9 +215,39 @@ export default function DocUploader({
 
         {adult.docs.length === 0 && (
           <p className="text-sm text-slate-500">
-            No income documents? That's OK. We'll flag a Form 4988 for this person.
+            No income? That&apos;s OK. Skip the upload and answer the tax return question below.
           </p>
         )}
+
+        <fieldset className="rounded-lg bg-slate-50 p-3">
+          <legend className="sr-only">Tax return</legend>
+          <p className="text-sm font-medium">Did {adult.name} file a {INCOME_YEAR} tax return?</p>
+          <div className="mt-2 flex gap-2">
+            {[
+              { v: true, label: "Yes", hint: "Bring the full federal + state returns" },
+              { v: false, label: "No, not required", hint: "We'll pre-fill Form 4988" },
+            ].map((o) => {
+              const on = (adult.filedTaxReturn ?? defaultFiled(adult.docs)) === o.v;
+              return (
+                <button
+                  key={o.label}
+                  type="button"
+                  aria-pressed={on}
+                  onClick={() => onChange((a) => ({ ...a, filedTaxReturn: o.v }))}
+                  className={`flex-1 rounded-lg border px-2 py-2 text-left text-sm ${on ? "border-blue-700 bg-blue-50 text-blue-900" : "border-slate-300 bg-white text-slate-700"}`}
+                >
+                  <span className="block font-semibold">{o.label}</span>
+                  <span className="block text-xs opacity-80">{o.hint}</span>
+                </button>
+              );
+            })}
+          </div>
+          {adult.filedTaxReturn === null && (
+            <p className="mt-2 text-xs text-slate-500">
+              Our guess from the documents so far. People whose only income is Social Security usually don&apos;t have to file.
+            </p>
+          )}
+        </fieldset>
 
         <div className="flex flex-wrap gap-2">
           <UploadButton variant="primary" onFile={(f) => upload(f)}>

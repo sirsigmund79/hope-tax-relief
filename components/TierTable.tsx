@@ -30,6 +30,7 @@ export default function TierTable({
               <tr key={r.label} className={on ? "bg-emerald-100 font-semibold text-emerald-900" : "border-t border-slate-100"}>
                 <td className="px-3 py-2">
                   {Math.round(r.exemption * 100)}%{on && <span className="ml-1 text-xs">← you</span>}
+                  {r.requiresHardship && <span className="block text-[11px] font-normal text-slate-500">20% income loss or foreclosure only</span>}
                 </td>
                 <td className="px-3 py-2">{usd(r.maxIncome)}</td>
                 <td className="px-3 py-2 text-right">

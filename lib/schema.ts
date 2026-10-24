@@ -8,6 +8,8 @@ export const Extraction = z.object({
   personName: z.string().nullable(),
   annualIncome: z.number().nonnegative().nullable(), // W2 box 1, SSA-1099 box 5, paystub YTD annualized
   taxYear: z.number().int().nullable(),
+  employerName: z.string().nullable().default(null), // W2 box c
+  parcelNumber: z.string().nullable().default(null), // tax bill
   // tax bill only
   taxBillAmount: z.number().nonnegative().nullable(),
   delinquentAmount: z.number().nonnegative().nullable(),

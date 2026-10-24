@@ -8,6 +8,7 @@ export type DocEntry = {
   docType: DocType;
   income: string;
   personName: string | null;
+  employerName: string | null;
   confidence: "high" | "medium" | "low" | null;
   issues: string[];
   failedReason?: string;
@@ -15,10 +16,26 @@ export type DocEntry = {
   previewUrl?: string; // local object URL of the photo, for the packet; never uploaded again
 };
 
-export type AdultState = { id: string; name: string; docs: DocEntry[] };
+export type AdultState = {
+  id: string;
+  name: string;
+  docs: DocEntry[];
+  filedTaxReturn: boolean | null; // null = not answered yet; see defaultFiled()
+};
+
+/** Best guess until the person answers: wage earners usually file; Social Security-only and no-income adults usually don't. */
+export function defaultFiled(docs: DocEntry[]): boolean {
+  return docs.some((d) => d.status === "done" && (d.docType === "W2" || d.docType === "PAYSTUB"));
+}
+
+export const filedTaxReturn = (a: AdultState) => a.filedTaxReturn ?? defaultFiled(a.docs);
 
 export type HouseholdState = {
   address: string;
+  phone: string;
+  email: string;
+  parcelNumber: string;
+  hardship: boolean; // 20%+ income loss, or home in property tax foreclosure
   householdSize: string;
   adultCount: string;
   liquidAssets: string;

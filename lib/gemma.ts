@@ -6,10 +6,11 @@ import { maskDeep, maskSsn } from "./mask";
 export const PROMPT = `You are reading a photo of a US financial document for a property tax exemption application.
 Return ONLY a JSON object, no prose, no markdown, with exactly these keys:
 docType ("W2" | "SSA_1099" | "PAYSTUB" | "TAX_BILL" | "OTHER"), personName, annualIncome,
-taxYear, taxBillAmount, delinquentAmount, preExemptionPercent, confidence ("high"|"medium"|"low"), issues (array of strings).
+taxYear, employerName, parcelNumber, taxBillAmount, delinquentAmount, preExemptionPercent, confidence ("high"|"medium"|"low"), issues (array of strings).
 Rules:
 - W2: annualIncome = Box 1 wages. SSA_1099: annualIncome = Box 5 net benefits. PAYSTUB: annualize gross pay using YTD and pay date if possible, else null.
-- TAX_BILL: fill taxBillAmount (total due this bill), delinquentAmount if shown, preExemptionPercent (PRE %) if shown.
+- W2 and PAYSTUB: employerName = the employer's name.
+- TAX_BILL: fill taxBillAmount (total due this bill), delinquentAmount if shown, preExemptionPercent (PRE %) if shown, parcelNumber (as printed).
 - Use null for anything not clearly visible. Never guess numbers.
 - Numbers as plain numbers (no $ or commas).
 - In issues, note anything that makes the photo hard to read (cut off, blurry, glare, wrong document).

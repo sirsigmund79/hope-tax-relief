@@ -10,8 +10,12 @@ A mobile-friendly web app that helps Detroit homeowners see whether they likely 
 5. Requirements, income limits and estimated savings are shown up front; a packet tracker fills in as documents are added.
 6. Results: tier (or what blocks it), before → after tax bill, flags, and a visual, printable packet with a pre-filled draft HOPE application.
 
-> Thresholds in `lib/config.ts` are **illustrative** (`THRESHOLDS_VERIFIED = false`). Verify against current
-> City of Detroit HOPE guidelines before relying on them. This tool gives an estimate, not a decision.
+> Income limits, the asset cap and the deadline in `lib/config.ts` come from the City of Detroit **2026 HOPE
+> Application**. This tool gives an estimate, not a decision; the Board of Review decides.
+
+The results screen fills in the **official 2026 HOPE application PDF** (`public/forms/`) in the browser, so
+nothing leaves the device: Form 5737, Form 4988 for each adult who didn't file a tax return, Form 2368 when the
+PRE is missing, and the statement page.
 
 ## Run it
 

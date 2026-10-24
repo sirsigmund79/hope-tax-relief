@@ -2,7 +2,8 @@
 
 import { tierTable, type Evaluation } from "@/lib/hope";
 import type { PacketInput, PacketItem } from "@/lib/packet";
-import { ASSET_CAP } from "@/lib/config";
+import type { ApplicationData } from "@/lib/hopeFields";
+import { ASSET_CAP, INCOME_YEAR } from "@/lib/config";
 import { usd } from "@/lib/format";
 import { Card } from "./ui";
 import IllustrativeBanner from "./IllustrativeBanner";
@@ -13,16 +14,16 @@ export default function Results({
   result,
   currentBill,
   householdSize,
-  liquidAssets,
   packetItems,
   packetInput,
+  application,
 }: {
   result: Evaluation;
   currentBill: number | null;
   householdSize: number;
-  liquidAssets: number | null;
   packetItems: PacketItem[];
   packetInput: PacketInput;
+  application: ApplicationData;
 }) {
   const { qualified, label, reason, flags } = result;
   const bill = currentBill;
@@ -38,17 +39,23 @@ export default function Results({
           {qualified ? `You likely qualify: ${label}` : "You likely don't qualify yet"}
         </h2>
         {reason && <p className="mt-2 text-slate-700">{reason}</p>}
-        {!qualified && incomeRow && (
+        {result.blocker === "assets" && incomeRow && (
           <p className="mt-2 rounded-lg bg-amber-50 p-3 text-sm text-amber-900">
-            Your income does fit the <b>{incomeRow.label}</b>. Savings are the only thing over the limit. If cash and
-            savings were {usd(ASSET_CAP)} or less{incomeRow.newBill !== null && <>, your bill could drop to <b>{usd(incomeRow.newBill)}</b></>}.
+            Your income does fit the <b>{incomeRow.label}</b>. Assets are the only thing over the limit. If they were{" "}
+            {usd(ASSET_CAP)} or less{incomeRow.newBill !== null && <>, your bill could drop to <b>{usd(incomeRow.newBill)}</b></>}.
             Check with the Board of Review about what counts as an asset.
           </p>
         )}
-        {!qualified && !result.incomeTier && (
+        {result.blocker === "hardship" && incomeRow && (
           <p className="mt-2 rounded-lg bg-amber-50 p-3 text-sm text-amber-900">
-            You're {usd(result.overIncomeBy)} over the lowest tier&apos;s limit. Double-check each amount: use yearly
-            income before taxes, and only for people living in the home. If the numbers are right, the Detroit Tax Relief Fund or a payment plan may still help.
+            If household income dropped 20% or more, or the home is in tax foreclosure, check that box on the first step
+            {incomeRow.newBill !== null && <>: the 10% tier would bring your bill to <b>{usd(incomeRow.newBill)}</b></>}.
+          </p>
+        )}
+        {result.blocker === "income" && (
+          <p className="mt-2 rounded-lg bg-amber-50 p-3 text-sm text-amber-900">
+            You&apos;re {usd(result.overIncomeBy)} over the highest limit. Double-check each amount: use yearly income before
+            taxes, and only for people living in the home. If the numbers are right, the Detroit Tax Relief Fund or a payment plan may still help.
           </p>
         )}
 
@@ -74,7 +81,7 @@ export default function Results({
         )}
 
         <p className="mt-4 text-xs text-slate-600">
-          Household income {usd(result.totalIncome)} vs. limit {usd(result.incomeLimit)} (poverty line {usd(result.povertyLine)}).
+          Household income {usd(result.totalIncome)} vs. limit {usd(result.incomeLimit)} (100% limit {usd(result.fullExemptionLimit)}).
           This is an estimate; the Board of Review makes the final decision.
         </p>
       </Card>
@@ -84,9 +91,10 @@ export default function Results({
           case "FORM_4988_NEEDED":
             return (
               <Card key={i} className="print:hidden border-blue-200 bg-blue-50">
-                <h3 className="font-semibold text-blue-900">Form 4988 needed for {f.person}</h3>
+                <h3 className="font-semibold text-blue-900">Form 4988 for {f.person}</h3>
                 <p className="mt-1 text-sm text-blue-900">
-                  No income document for {f.person}. If they have no income, they sign a Poverty Exemption Affidavit (Form 4988) instead.
+                  {f.person} wasn&apos;t required to file a {INCOME_YEAR} tax return, so they sign a Poverty Exemption Affidavit
+                  (Form 4988) instead. It&apos;s pre-filled in your application PDF. They still include any income documents.
                 </p>
               </Card>
             );
@@ -114,7 +122,7 @@ export default function Results({
               <Card key={i} className="print:hidden border-red-200 bg-red-50">
                 <h3 className="font-semibold text-red-900">Savings over the limit</h3>
                 <p className="mt-1 text-sm text-red-900">
-                  {usd(f.assets)} in cash and savings is over the {usd(f.cap)} asset limit.
+                  {usd(f.assets)} in household assets is over the {usd(f.cap)} limit.
                 </p>
               </Card>
             );
@@ -126,7 +134,7 @@ export default function Results({
         <TierTable rows={rows} householdSize={householdSize} highlight={result.incomeTier?.exemption} income={result.totalIncome} />
       </Card>
 
-      <PacketView items={packetItems} input={packetInput} householdSize={householdSize} liquidAssets={liquidAssets} result={result} />
+      <PacketView items={packetItems} input={packetInput} application={application} />
 
       <IllustrativeBanner />
     </div>
