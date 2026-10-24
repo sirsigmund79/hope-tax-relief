@@ -21,21 +21,46 @@ export type Flag =
   | { code: "DTRF_CHECK"; amount: number }
   | { code: "ASSET_CAP_EXCEEDED"; assets: number; cap: number };
 
+export type TierRow = {
+  label: string;
+  exemption: number;
+  maxIncome: number;
+  newBill: number | null;
+  savings: number | null;
+};
+
 export type Evaluation = {
   qualified: boolean;
   tier: number; // exemption fraction, 0..1
   label: string;
   reason?: string;
+  // The tier income alone would earn, even if something else (assets) blocks it.
+  incomeTier: { exemption: number; label: string } | null;
+  overIncomeBy: number; // 0 unless income is over the top tier
   totalIncome: number;
   povertyLine: number;
   incomeLimit: number; // top of the household's qualifying tier, or of the highest tier
   estimatedNewBill: number | null;
   annualSavings: number | null;
   flags: Flag[];
-  packet: string[];
 };
 
 const money = (n: number) => Math.round(n * 100) / 100;
+
+/** Income limits and estimated bills for every tier, for a household size and current bill. */
+export function tierTable(householdSize: number, currentTaxBill: number | null): TierRow[] {
+  const line = povertyLineFor(householdSize);
+  return TIERS.map((t) => {
+    const newBill = currentTaxBill === null ? null : money(currentTaxBill * (1 - t.exemption));
+    return {
+      label: t.label,
+      exemption: t.exemption,
+      maxIncome: money(line * t.maxIncomeRatio),
+      newBill,
+      savings: currentTaxBill === null || newBill === null ? null : money(currentTaxBill - newBill),
+    };
+  });
+}
 
 export function evaluateHousehold(input: HouseholdInput): Evaluation {
   const povertyLine = povertyLineFor(input.householdSize);
@@ -44,12 +69,13 @@ export function evaluateHousehold(input: HouseholdInput): Evaluation {
   );
 
   const flags: Flag[] = [];
-  const needs4988 = input.adults.filter((a) => !a.hasIncomeDoc);
-  for (const a of needs4988) flags.push({ code: "FORM_4988_NEEDED", person: a.name });
+  for (const a of input.adults.filter((a) => !a.hasIncomeDoc)) {
+    flags.push({ code: "FORM_4988_NEEDED", person: a.name });
+  }
 
-  const preMissing =
-    input.preExemptionPercent !== null && input.preExemptionPercent < 100;
-  if (preMissing) flags.push({ code: "PRE_MISSING" });
+  if (input.preExemptionPercent !== null && input.preExemptionPercent < 100) {
+    flags.push({ code: "PRE_MISSING" });
+  }
 
   if (input.delinquentAmount && input.delinquentAmount > 0) {
     flags.push({ code: "DTRF_CHECK", amount: input.delinquentAmount });
@@ -81,26 +107,18 @@ export function evaluateHousehold(input: HouseholdInput): Evaluation {
   const estimatedNewBill = bill === null ? null : money(bill * (1 - exemption));
   const annualSavings = bill === null || estimatedNewBill === null ? null : money(bill - estimatedNewBill);
 
-  const packet = [
-    "HOPE application (City of Detroit Board of Review)",
-    "Photo ID for each adult in the home",
-    "Proof of income for every adult who has income (W-2, SSA-1099, paystubs)",
-    ...needs4988.map((a) => `Form 4988 (Poverty Exemption Affidavit) for ${a.name} — no income document`),
-    ...(preMissing ? ["Form 2368 (Principal Residence Exemption Affidavit)"] : []),
-    "Most recent property tax bill",
-  ];
-
   return {
     qualified,
     tier: exemption,
     label,
     reason,
+    incomeTier: tier ? { exemption: tier.exemption, label: tier.label } : null,
+    overIncomeBy: tier ? 0 : money(totalIncome - topLimit),
     totalIncome,
     povertyLine,
     incomeLimit: tier ? money(povertyLine * tier.maxIncomeRatio) : topLimit,
     estimatedNewBill,
     annualSavings,
     flags,
-    packet,
   };
 }

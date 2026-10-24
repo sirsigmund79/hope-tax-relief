@@ -12,6 +12,7 @@ export type DocEntry = {
   issues: string[];
   failedReason?: string;
   mock?: boolean;
+  previewUrl?: string; // local object URL of the photo, for the packet; never uploaded again
 };
 
 export type AdultState = { id: string; name: string; docs: DocEntry[] };
@@ -24,6 +25,7 @@ export type HouseholdState = {
   currentTaxBill: string;
   delinquentAmount: string;
   preExemptionPercent: string;
+  billImage: string; // local object URL of the scanned bill, "" if none
 };
 
 export const INCOME_DOCS: DocType[] = ["W2", "SSA_1099", "PAYSTUB"];

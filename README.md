@@ -7,7 +7,8 @@ A mobile-friendly web app that helps Detroit homeowners see whether they likely 
 2. Photograph each adult's income document (W-2, SSA-1099, paystub).
 3. Gemma 4 reads each photo and returns structured JSON. **The model only extracts; it never decides.**
 4. A deterministic, unit-tested rules engine (`lib/hope.ts`) computes the exemption tier.
-5. Results: tier, before → after tax bill, Form 4988 / Form 2368 / DTRF flags, and a filing-packet checklist.
+5. Requirements, income limits and estimated savings are shown up front; a packet tracker fills in as documents are added.
+6. Results: tier (or what blocks it), before → after tax bill, flags, and a visual, printable packet with a pre-filled draft HOPE application.
 
 > Thresholds in `lib/config.ts` are **illustrative** (`THRESHOLDS_VERIFIED = false`). Verify against current
 > City of Detroit HOPE guidelines before relying on them. This tool gives an estimate, not a decision.

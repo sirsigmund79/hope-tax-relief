@@ -15,3 +15,7 @@ Decisions, shortcuts, and known gaps (one line each).
 - Known gap: no automated UI tests in the repo; the Playwright demo checks were run ad hoc during the build.
 - Probe script wraps its body in main() (tsx runs .ts as CommonJS here, so top-level await fails) and loads .env.local via @next/env.
 - Model-call errors are logged server-side (API message only, SSN-masked) and shown in the UI outside production, to make key/model-id problems diagnosable.
+- Requirements, income limits and a live savings-by-tier table now sit on step 1; savings over the cap are flagged at the field, not only at the end.
+- Packet logic lives in `lib/packet.ts` (pure, tested). The tracker updates as documents are added; Results renders the packet as draft pages (HOPE application, Form 4988/2368 worksheets, attachments) with browser print. No PDF generation.
+- The pre-filled pages are drafts to copy onto the official forms, labeled as such; their wording is not the official form text.
+- Photos for the packet are local object URLs, kept in the browser only. They aren't revoked on remove (small leak, fine for a session).

@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { extractFile } from "@/lib/extractClient";
+import { ASSET_CAP } from "@/lib/config";
+import { num, usd } from "@/lib/format";
 import { Card, Field } from "./ui";
 import { UploadButton } from "./DocUploader";
 import type { HouseholdState } from "./types";
@@ -19,12 +21,13 @@ export default function HouseholdForm({
     setBillStatus({ kind: "loading" });
     const r = await extractFile(file);
     const d = r.ok ? r.data : r.partial;
-    const patch: Partial<HouseholdState> = {};
+    // Keep the photo for the packet even if reading it failed: the user said it's their bill.
+    const patch: Partial<HouseholdState> = { billImage: URL.createObjectURL(file) };
     if (d.taxBillAmount != null) patch.currentTaxBill = String(d.taxBillAmount);
     if (d.delinquentAmount != null) patch.delinquentAmount = String(d.delinquentAmount);
     if (d.preExemptionPercent != null) patch.preExemptionPercent = String(d.preExemptionPercent);
     onChange(patch);
-    if (r.ok && d.docType === "TAX_BILL" && Object.keys(patch).length) {
+    if (r.ok && d.docType === "TAX_BILL" && Object.keys(patch).length > 1) {
       const issues = r.data.issues.length ? ` Note: ${r.data.issues.join("; ")}` : "";
       setBillStatus({ kind: "ok", msg: `Filled in from your tax bill. Please double-check.${issues}` });
     } else {
@@ -32,6 +35,9 @@ export default function HouseholdForm({
       setBillStatus({ kind: "error", msg: `${why}. Please type the amounts below.` });
     }
   }
+
+  const assets = num(value.liquidAssets);
+  const overAssets = assets !== null && assets > ASSET_CAP;
 
   const set = (k: keyof HouseholdState) => (e: React.ChangeEvent<HTMLInputElement>) => onChange({ [k]: e.target.value });
 
@@ -50,7 +56,15 @@ export default function HouseholdForm({
           placeholder="$0"
           value={value.liquidAssets}
           onChange={set("liquidAssets")}
-          hint="Checking, savings, and cash on hand. Not your house or car."
+          hint={
+            overAssets ? (
+              <span className="font-semibold text-red-700">
+                Over the {usd(ASSET_CAP)} limit. You likely won&apos;t qualify unless this amount is lower. You can still build your packet.
+              </span>
+            ) : (
+              "Checking, savings, and cash on hand. Not your house or car."
+            )
+          }
         />
       </Card>
 
@@ -61,6 +75,10 @@ export default function HouseholdForm({
             {billStatus.kind === "loading" ? "Reading…" : "📷 Scan bill"}
           </UploadButton>
         </div>
+        {value.billImage && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={value.billImage} alt="Your tax bill" className="h-24 w-full rounded border border-slate-200 object-cover object-top" />
+        )}
         {billStatus.msg && (
           <p className={`text-sm ${billStatus.kind === "ok" ? "text-emerald-700" : "text-red-700"}`}>{billStatus.msg}</p>
         )}

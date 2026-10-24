@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { evaluateHousehold, type HouseholdInput } from "@/lib/hope";
+import { evaluateHousehold, tierTable, type HouseholdInput } from "@/lib/hope";
 import { ASSET_CAP, TIERS, povertyLineFor } from "@/lib/config";
 
 const base = (over: Partial<HouseholdInput> = {}): HouseholdInput => ({
@@ -52,6 +52,18 @@ describe("evaluateHousehold", () => {
     expect(r.flags.map((f) => f.code)).toContain("ASSET_CAP_EXCEEDED");
   });
 
+  it("assets block but income still reports the tier it would earn", () => {
+    const r = evaluateHousehold({ ...oneEarner(3, povertyLineFor(3) + 1), liquidAssets: ASSET_CAP + 1 });
+    expect(r.qualified).toBe(false);
+    expect(r.incomeTier).toEqual({ exemption: 0.75, label: "75% exemption" });
+  });
+
+  it("over income reports how far over the top limit", () => {
+    const r = evaluateHousehold(oneEarner(1, povertyLineFor(1) * 2 + 500));
+    expect(r.incomeTier).toBeNull();
+    expect(r.overIncomeBy).toBe(500);
+  });
+
   it("two adults, one with no doc → FORM_4988_NEEDED for that person, counted as $0", () => {
     const r = evaluateHousehold(
       base({
@@ -65,13 +77,11 @@ describe("evaluateHousehold", () => {
     expect(r.totalIncome).toBe(14400);
     expect(r.flags).toContainEqual({ code: "FORM_4988_NEEDED", person: "John Doe" });
     expect(r.flags.filter((f) => f.code === "FORM_4988_NEEDED")).toHaveLength(1);
-    expect(r.packet.some((p) => p.includes("4988") && p.includes("John Doe"))).toBe(true);
   });
 
-  it("PRE at 0 → PRE_MISSING and Form 2368 in packet", () => {
+  it("PRE at 0 → PRE_MISSING", () => {
     const r = evaluateHousehold(base({ preExemptionPercent: 0 }));
     expect(r.flags.map((f) => f.code)).toContain("PRE_MISSING");
-    expect(r.packet.some((p) => p.includes("2368"))).toBe(true);
   });
 
   it("delinquent > 0 → DTRF_CHECK", () => {
@@ -94,5 +104,19 @@ describe("evaluateHousehold", () => {
     expect(r.tier).toBe(1);
     expect(r.estimatedNewBill).toBe(0);
     expect(r.flags.map((f) => f.code).sort()).toEqual(["DTRF_CHECK", "FORM_4988_NEEDED"]);
+  });
+});
+
+describe("tierTable", () => {
+  it("gives limits, new bill and savings for every tier", () => {
+    const rows = tierTable(2, 2100);
+    expect(rows).toHaveLength(TIERS.length);
+    expect(rows[0]).toEqual({ label: "100% exemption", exemption: 1, maxIncome: povertyLineFor(2), newBill: 0, savings: 2100 });
+    expect(rows[1].newBill).toBe(525);
+    expect(rows[4].savings).toBe(210);
+  });
+
+  it("leaves dollars blank without a bill", () => {
+    expect(tierTable(1, null)[0]).toMatchObject({ newBill: null, savings: null });
   });
 });

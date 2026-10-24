@@ -38,7 +38,7 @@ export function UploadButton({
   );
 }
 
-function entryFromResult(id: string, filename: string, r: ExtractResult): DocEntry {
+function entryFromResult(id: string, filename: string, r: ExtractResult, previewUrl: string): DocEntry {
   if (r.ok) {
     const d = r.data;
     const notIncome = !INCOME_DOCS.includes(d.docType);
@@ -51,6 +51,7 @@ function entryFromResult(id: string, filename: string, r: ExtractResult): DocEnt
       income: d.annualIncome === null ? "" : String(d.annualIncome),
       personName: d.personName,
       confidence: d.confidence,
+      previewUrl,
       issues: notIncome
         ? [...d.issues, `This looks like a ${DOC_LABELS[d.docType].toLowerCase()}, not an income document.`]
         : d.issues,
@@ -69,6 +70,7 @@ function entryFromResult(id: string, filename: string, r: ExtractResult): DocEnt
     confidence: null,
     issues: p.issues ?? [],
     failedReason: r.reason,
+    previewUrl,
   };
 }
 
@@ -105,8 +107,9 @@ export default function DocUploader({
       docs: replaceId ? a.docs.map((d) => (d.id === id ? loading : d)) : [...a.docs, loading],
     }));
     const result = await extractFile(file);
+    const previewUrl = URL.createObjectURL(file);
     onChange((a) => {
-      const entry = entryFromResult(id, file.name, result);
+      const entry = entryFromResult(id, file.name, result, previewUrl);
       // Fill the adult's name from the document if they left the default.
       const name = /^Adult \d+$/.test(a.name) && entry.personName ? entry.personName : a.name;
       return { ...a, name, docs: a.docs.map((d) => (d.id === id ? entry : d)) };
@@ -145,6 +148,10 @@ export default function DocUploader({
           ) : (
             <div key={d.id} className="rounded-lg border border-slate-200 p-3">
               <div className="flex flex-wrap items-center gap-2">
+                {d.previewUrl && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={d.previewUrl} alt="" className="h-10 w-10 rounded border border-slate-200 object-cover" />
+                )}
                 <select
                   value={d.docType}
                   onChange={(e) => setDoc(d.id, { docType: e.target.value as DocType })}
