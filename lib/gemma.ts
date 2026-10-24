@@ -11,7 +11,7 @@ institutionName, accountBalance, lenderName, loanBalance, monthlyPayment, confid
 Rules:
 - W2: annualIncome = Box 1 wages; employerName and employerAddress (one line) from box c. SSA_1099: annualIncome = Box 5 net benefits.
 - PAYSTUB: employerName; annualize gross pay using YTD and pay date if possible, else null.
-- TAX_BILL: taxBillAmount (total due this bill), delinquentAmount if shown, preExemptionPercent (PRE %) if shown, parcelNumber (as printed), propertyAddress (one line), personName = owner.
+- TAX_BILL: taxBillAmount (total due this bill), delinquentAmount if shown, preExemptionPercent (PRE %) if shown, parcelNumber (as printed), propertyAddress (one line), personName = owner. If it is only a summer or only a winter bill, say so in issues.
 - BANK_STATEMENT: institutionName, accountBalance (ending balance), personName = account holder.
 - MORTGAGE_STATEMENT: lenderName, loanBalance (unpaid principal), monthlyPayment, personName = borrower.
 - Use null for anything not clearly visible or not on this kind of document. Never guess numbers.

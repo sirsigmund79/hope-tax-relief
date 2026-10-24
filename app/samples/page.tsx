@@ -30,6 +30,12 @@ export default function Samples() {
   return (
     <main className="space-y-10 bg-slate-200 p-6">
       <p className="text-sm text-slate-700">Synthetic documents for demo screenshots. All data is fictional.</p>
+      <section className="space-y-2">
+        <h2 className="font-semibold">Real example: a 2026 Detroit summer tax bill</h2>
+        <p className="text-sm text-slate-700">A real bill with the parcel number blacked out. Its PRE is 0%, so it also shows the Form 2368 path.</p>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/samples/detroit-summer-tax-bill-2026.jpg" alt="2026 Detroit summer property tax bill" className="w-[720px] shadow" />
+      </section>
 
       <Doc id="ssa-1099">
         <div className="mb-3">

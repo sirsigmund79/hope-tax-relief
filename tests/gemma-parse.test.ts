@@ -85,6 +85,7 @@ describe("fixtureFor", () => {
     expect(fixtureFor("tax_bill.jpg").docType).toBe("TAX_BILL");
     expect(fixtureFor("w2-cropped.jpg").issues.length).toBeGreaterThan(0);
     expect(fixtureFor("IMG_0001.jpg").docType).toBe("W2");
+    expect(fixtureFor("detroit-summer-tax-bill-2026.jpg")).toMatchObject({ taxBillAmount: 5230.27, preExemptionPercent: 0 });
   });
 });
 
