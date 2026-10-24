@@ -3,6 +3,14 @@
 A mobile-friendly web app that helps Detroit homeowners see whether they likely qualify for the
 **HOPE** (Homeowners Property Exemption) property tax exemption, from a few photos.
 
+### Watch the 37-second demo
+
+[![HOPE Check demo: from a few photos to the official 2026 application, filled in](docs/demo/poster.jpg)](docs/demo/hope-check-demo.mp4)
+
+Click the image to play [`docs/demo/hope-check-demo.mp4`](docs/demo/hope-check-demo.mp4). The video was made with
+[HyperFrames](https://github.com/heygen-com/hyperframes) from screenshots of the demo run; its source is in
+[`docs/demo/video-src/`](docs/demo/video-src) (see [Re-rendering the demo video](#re-rendering-the-demo-video)).
+
 Built to the GOV.UK [Structuring forms](https://www.gov.uk/service-manual/design/form-structure) guidance:
 
 1. **Check if you can apply**: 5 eligibility questions first (own and live there, household size, assets, income band, tax bill), with stop pages so people who can't apply find out right away.
@@ -58,3 +66,17 @@ Upload `w2-cropped-john-doe.png` to show the "cut off, retake" path.
 `npm run typecheck` · `npm test` · `npm run build`
 
 See `NOTES.md` for shortcuts taken and known gaps.
+
+## Re-rendering the demo video
+
+The video is a single-file HyperFrames composition (`docs/demo/video-src/index.html`): a title card, seven
+captioned scenes, and an end card, with GSAP fades. The screenshots in `assets/` come from the demo household run
+in mock mode at 390×844. To re-render after changing them:
+
+```bash
+cd docs/demo/video-src
+HYPERFRAMES_NO_TELEMETRY=1 npx --yes hyperframes@0.8.180 render -o ../hope-check-demo.mp4
+```
+
+HyperFrames needs Node 22+, FFmpeg, and Chrome (`npx hyperframes@0.8.180 browser ensure` downloads one).
+

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <!-- Local copy of GSAP 3.14.2 so renders never depend on a CDN. -->
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #f6f7f9; }
+      #root { position: relative; width: 100%; height: 100%; font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #0f172a; }
+      .clip { position: absolute; inset: 0; }
+      .card { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 28px; }
+      .card h1 { font-size: 120px; font-weight: 800; letter-spacing: -0.04em; color: #1e3a8a; }
+      .card p { font-size: 44px; color: #334155; max-width: 1300px; line-height: 1.3; }
+      .card .small { font-size: 32px; color: #64748b; }
+      .rule { width: 120px; height: 8px; border-radius: 4px; background: #1d4ed8; }
+      .scene { display: flex; align-items: center; justify-content: center; gap: 120px; padding: 0 140px; }
+      .copy { width: 760px; }
+      .step { font-size: 30px; font-weight: 700; color: #1d4ed8; letter-spacing: 0.08em; }
+      .copy h2 { margin-top: 18px; font-size: 68px; line-height: 1.12; font-weight: 750; letter-spacing: -0.025em; }
+      .copy .sub { margin-top: 26px; font-size: 36px; line-height: 1.35; color: #475569; }
+      .phone { width: 432px; height: 936px; border-radius: 48px; border: 14px solid #0f172a; overflow: hidden; background: #fff; box-shadow: 0 30px 80px rgba(15, 23, 42, 0.18); flex: none; }
+      .phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+      .pdf { height: 936px; border: 1px solid #cbd5e1; box-shadow: 0 30px 80px rgba(15, 23, 42, 0.18); background: #fff; flex: none; }
+      .final { gap: 70px; padding: 0 100px; }
+      .final .copy { width: 560px; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="37.0" data-width="1920" data-height="1080">
+      <section id="title" class="clip card" data-start="0" data-duration="3.5" data-track-index="0">
+        <h1>HOPE Check</h1>
+        <div class="rule"></div>
+        <p>Apply for Detroit&rsquo;s HOPE property tax exemption from a few photos.</p>
+      </section>
+      <section id="s1" class="clip scene" data-start="3.5" data-duration="4.0" data-track-index="1">
+        <div class="copy">
+          <p class="step">1 / 7</p>
+          <h2>Five quick questions tell you if you can apply.</h2>
+          <p class="sub">Eligibility comes first, one question per page.</p>
+        </div>
+        <div class="phone"><img src="assets/02-question.png" alt="" /></div>
+      </section>
+      <section id="s2" class="clip scene" data-start="7.5" data-duration="4.0" data-track-index="1">
+        <div class="copy">
+          <p class="step">2 / 7</p>
+          <h2>See what you could save before you start.</h2>
+          <p class="sub">Limits from the City's 2026 HOPE guidelines.</p>
+        </div>
+        <div class="phone"><img src="assets/03-result.png" alt="" /></div>
+      </section>
+      <section id="s3" class="clip scene" data-start="11.5" data-duration="4.0" data-track-index="1">
+        <div class="copy">
+          <p class="step">3 / 7</p>
+          <h2>One photo of your tax bill fills in the details.</h2>
+          <p class="sub">Address, parcel number, PRE, and past-due taxes.</p>
+        </div>
+        <div class="phone"><img src="assets/04-prefilled.png" alt="" /></div>
+      </section>
+      <section id="s4" class="clip scene" data-start="15.5" data-duration="4.0" data-track-index="1">
+        <div class="copy">
+          <p class="step">4 / 7</p>
+          <h2>Gemma 4 reads W-2s and SSA-1099s.</h2>
+          <p class="sub">The model only reads documents. Tested rules decide.</p>
+        </div>
+        <div class="phone"><img src="assets/05-income.png" alt="" /></div>
+      </section>
+      <section id="s5" class="clip scene" data-start="19.5" data-duration="4.0" data-track-index="1">
+        <div class="copy">
+          <p class="step">5 / 7</p>
+          <h2>Short sections, in any order.</h2>
+          <p class="sub">Mortgage and bank statements are photos too.</p>
+        </div>
+        <div class="phone"><img src="assets/06-tasks.png" alt="" /></div>
+      </section>
+      <section id="s6" class="clip scene" data-start="23.5" data-duration="4.0" data-track-index="1">
+        <div class="copy">
+          <p class="step">6 / 7</p>
+          <h2>Check your answers.</h2>
+          <p class="sub">Every section folds away; change anything.</p>
+        </div>
+        <div class="phone"><img src="assets/07-check.png" alt="" /></div>
+      </section>
+      <section id="final" class="clip scene final" data-start="27.5" data-duration="5.5" data-track-index="1">
+        <div class="copy">
+          <p class="step">7 / 7</p>
+          <h2>Download the official 2026 application, filled in.</h2>
+          <p class="sub">The City&rsquo;s own PDF. Signatures stay yours.</p>
+        </div>
+        <div class="phone"><img src="assets/08-download.png" alt="" /></div>
+        <img class="pdf" src="assets/09-pdf.png" alt="" />
+      </section>
+      <section id="end" class="clip card" data-start="33.0" data-duration="4.0" data-track-index="0">
+        <h1>HOPE Check</h1>
+        <div class="rule"></div>
+        <p>46 fields and boxes filled in for the demo household.<br />Nothing stored on a server.</p>
+        <p class="small">github.com/sirsigmund79/hope-tax-relief</p>
+      </section>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const FADE = 0.45;
+      // Each scene fades in at its start and out just before its end.
+      function fadeScene(sel, start, dur) {
+        tl.fromTo(sel, { opacity: 0 }, { opacity: 1, duration: FADE, ease: "power1.out" }, start);
+        tl.fromTo(sel + " .copy", { y: 24 }, { y: 0, duration: 0.6, ease: "power2.out" }, start);
+        tl.to(sel, { opacity: 0, duration: FADE, ease: "power1.in" }, start + dur - FADE);
+      }
+      tl.fromTo("#title", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 0);
+      tl.to("#title", { opacity: 0, duration: FADE }, 3.5 - FADE);
+      fadeScene("#s1", 3.5, 4.0);
+      fadeScene("#s2", 7.5, 4.0);
+      fadeScene("#s3", 11.5, 4.0);
+      fadeScene("#s4", 15.5, 4.0);
+      fadeScene("#s5", 19.5, 4.0);
+      fadeScene("#s6", 23.5, 4.0);
+      fadeScene("#final", 27.5, 5.5);
+      tl.fromTo("#end", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 33.0);
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

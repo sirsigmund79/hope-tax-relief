@@ -35,3 +35,4 @@ Decisions, shortcuts, and known gaps (one line each).
 - Self-reported income band stands in for income until documents are added, so the task-list estimate is meaningful from the start.
 - "Number of legal dependents" is approximated as people under 18 in the household.
 - Known gap: the end-to-end Playwright scripts used to verify the wizard aren't committed (they need a running server and playwright installed globally).
+- Demo video: made with HyperFrames 0.8.180 (pinned; the newest release was a few hours old), blank example, one file, local GSAP copy so renders don't hit a CDN. Lint warns that scenes should be sub-compositions; that only affects HyperFrames Studio's timeline view, not the render. Telemetry off via HYPERFRAMES_NO_TELEMETRY.
