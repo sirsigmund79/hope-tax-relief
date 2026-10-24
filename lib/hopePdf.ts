@@ -1,9 +1,9 @@
 // Fills the official City of Detroit 2026 HOPE application PDF (public/forms/2026-hope-application.pdf).
 // Works in the browser and in Node; nothing is sent anywhere.
-import { PDFArray, PDFDocument, PDFName, PDFRef, StandardFonts, type PDFForm } from "pdf-lib";
+import { PDFArray, PDFDict, PDFDocument, PDFName, PDFRef, StandardFonts, type PDFForm } from "pdf-lib";
 import { NAME_BOX_4988, PAGE, planFill, type ApplicationData } from "./hopeFields";
 
-export { HOPE_PDF_PATH, planFill, type ApplicationData, type ApplicationAdult, type FillPlan } from "./hopeFields";
+export { HOPE_PDF_PATH, planFill, type ApplicationData, type ApplicationPerson, type FillPlan } from "./hopeFields";
 
 /** Remove pages, first detaching their widgets from shared fields so the form stays valid. */
 function removePages(doc: PDFDocument, form: PDFForm, indexes: number[]) {
@@ -28,10 +28,36 @@ function removePages(doc: PDFDocument, form: PDFForm, indexes: number[]) {
   [...indexes].sort((a, b) => b - a).forEach((i) => doc.removePage(i));
 }
 
+/**
+ * Select one on-state of a button field. Several of this PDF's "checkboxes" are really Yes/No pairs
+ * (two widgets, one field, different on-states), so set /V and each widget's /AS directly.
+ * "*" picks the field's only on-state (some have long, odd export names).
+ */
+function selectButton(form: PDFForm, name: string, state: string) {
+  const af = form.getField(name).acroField;
+  let chosen: PDFName | undefined;
+  for (const w of af.getWidgets()) {
+    const normal = w.dict.lookup(PDFName.of("AP"), PDFDict)?.lookup(PDFName.of("N"), PDFDict);
+    const on = normal?.keys().find((k) => k.asString() !== "/Off" && (state === "*" || k.asString() === `/${state}`));
+    w.dict.set(PDFName.of("AS"), on ?? PDFName.of("Off"));
+    chosen ??= on;
+  }
+  if (!chosen) throw new Error(`No "${state}" state on ${name}`);
+  af.dict.set(PDFName.of("V"), chosen);
+}
+
 export async function fillHopePdf(pdfBytes: ArrayBuffer | Uint8Array, data: ApplicationData): Promise<Uint8Array> {
   const plan = planFill(data);
   const doc = await PDFDocument.load(pdfBytes);
   const form = doc.getForm();
+
+  for (const [name, state] of Object.entries(plan.checks)) {
+    try {
+      selectButton(form, name, state);
+    } catch {
+      // Same as text: a missing box is left for the person to tick.
+    }
+  }
 
   const font = await doc.embedFont(StandardFonts.Helvetica);
   for (const [name, value] of Object.entries(plan.text)) {

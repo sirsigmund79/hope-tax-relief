@@ -27,3 +27,11 @@ Decisions, shortcuts, and known gaps (one line each).
 - We only know total household assets, so Part 7 gets one "Total, all accounts" row. Ages, marital status, mortgage, vehicles, debts, expenses, and the Part 3/13 affirmation boxes are left for the applicant.
 - NeedAppearances is left off: pdf-lib draws field appearances itself, and turning it on made poppler redraw with a font tag it couldn't resolve.
 - Known gap: the whole 7 MB PDF is fetched on download; fine on Wi-Fi, slow on a weak phone connection.
+- Restructured to GOV.UK "Structuring forms": eligibility check first (with stop pages), then a task list of sections, one question per page, branching yes/no gates, Check your answers with Change links. Flow is pure and tested in `lib/flow.ts`; all state lives in one `AppState` (`lib/application.ts`) with pure selectors for the rules engine, packet and PDF.
+- `docs/question-protocol.md` lists every PDF input, why it's needed, and how we get it (fixed, derived, photo, ask, branch, or left for the person).
+- Data-entry minimizers: tax bill photo fills address/parcel/PRE/amounts/owner name; W-2 fills employer name and address; new BANK_STATEMENT and MORTGAGE_STATEMENT extraction fills Parts 7 and 2; move-in date feeds both Part 2 and Form 2368 line 11; spouse age and dependents are derived from the people list; "no" answers write N/A; blank expenses become N/A.
+- Part 3 boxes are ticked from the "own and live in" answer; Part 13 only after the person ticks the in-app acknowledgment. Signatures, dates signed, the property's legal description, and Form 2368's last-four SSN are always left for the person.
+- Answers persist in sessionStorage (this tab only); photos don't, since object URLs die on reload. Re-scan after a refresh if you want thumbnails in the packet.
+- Self-reported income band stands in for income until documents are added, so the task-list estimate is meaningful from the start.
+- "Number of legal dependents" is approximated as people under 18 in the household.
+- Known gap: the end-to-end Playwright scripts used to verify the wizard aren't committed (they need a running server and playwright installed globally).

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const DocType = z.enum(["W2", "SSA_1099", "PAYSTUB", "TAX_BILL", "OTHER"]);
+export const DocType = z.enum(["W2", "SSA_1099", "PAYSTUB", "TAX_BILL", "BANK_STATEMENT", "MORTGAGE_STATEMENT", "OTHER"]);
 export type DocType = z.infer<typeof DocType>;
 
 export const Extraction = z.object({
@@ -8,8 +8,18 @@ export const Extraction = z.object({
   personName: z.string().nullable(),
   annualIncome: z.number().nonnegative().nullable(), // W2 box 1, SSA-1099 box 5, paystub YTD annualized
   taxYear: z.number().int().nullable(),
+  // Newer keys default to null so replies from models that omit them still validate.
   employerName: z.string().nullable().default(null), // W2 box c
+  employerAddress: z.string().nullable().default(null), // W2 box c, one line
   parcelNumber: z.string().nullable().default(null), // tax bill
+  propertyAddress: z.string().nullable().default(null), // tax bill, one line
+  // bank statement
+  institutionName: z.string().nullable().default(null),
+  accountBalance: z.number().nonnegative().nullable().default(null),
+  // mortgage statement
+  lenderName: z.string().nullable().default(null),
+  loanBalance: z.number().nonnegative().nullable().default(null),
+  monthlyPayment: z.number().nonnegative().nullable().default(null),
   // tax bill only
   taxBillAmount: z.number().nonnegative().nullable(),
   delinquentAmount: z.number().nonnegative().nullable(),

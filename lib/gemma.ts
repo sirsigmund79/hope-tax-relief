@@ -3,18 +3,21 @@ import { Extraction, type ExtractResult } from "./schema";
 import { fixtureFor } from "./fixtures";
 import { maskDeep, maskSsn } from "./mask";
 
-export const PROMPT = `You are reading a photo of a US financial document for a property tax exemption application.
+export const PROMPT = `You are reading a photo of a US document for a property tax exemption application.
 Return ONLY a JSON object, no prose, no markdown, with exactly these keys:
-docType ("W2" | "SSA_1099" | "PAYSTUB" | "TAX_BILL" | "OTHER"), personName, annualIncome,
-taxYear, employerName, parcelNumber, taxBillAmount, delinquentAmount, preExemptionPercent, confidence ("high"|"medium"|"low"), issues (array of strings).
+docType ("W2" | "SSA_1099" | "PAYSTUB" | "TAX_BILL" | "BANK_STATEMENT" | "MORTGAGE_STATEMENT" | "OTHER"), personName, annualIncome,
+taxYear, employerName, employerAddress, parcelNumber, propertyAddress, taxBillAmount, delinquentAmount, preExemptionPercent,
+institutionName, accountBalance, lenderName, loanBalance, monthlyPayment, confidence ("high"|"medium"|"low"), issues (array of strings).
 Rules:
-- W2: annualIncome = Box 1 wages. SSA_1099: annualIncome = Box 5 net benefits. PAYSTUB: annualize gross pay using YTD and pay date if possible, else null.
-- W2 and PAYSTUB: employerName = the employer's name.
-- TAX_BILL: fill taxBillAmount (total due this bill), delinquentAmount if shown, preExemptionPercent (PRE %) if shown, parcelNumber (as printed).
-- Use null for anything not clearly visible. Never guess numbers.
+- W2: annualIncome = Box 1 wages; employerName and employerAddress (one line) from box c. SSA_1099: annualIncome = Box 5 net benefits.
+- PAYSTUB: employerName; annualize gross pay using YTD and pay date if possible, else null.
+- TAX_BILL: taxBillAmount (total due this bill), delinquentAmount if shown, preExemptionPercent (PRE %) if shown, parcelNumber (as printed), propertyAddress (one line), personName = owner.
+- BANK_STATEMENT: institutionName, accountBalance (ending balance), personName = account holder.
+- MORTGAGE_STATEMENT: lenderName, loanBalance (unpaid principal), monthlyPayment, personName = borrower.
+- Use null for anything not clearly visible or not on this kind of document. Never guess numbers.
 - Numbers as plain numbers (no $ or commas).
 - In issues, note anything that makes the photo hard to read (cut off, blurry, glare, wrong document).
-- Never include Social Security numbers in any field.`;
+- Never include Social Security or account numbers in any field.`;
 
 export const RETRY_PROMPT =
   "Your last reply was not valid JSON matching the schema. Reply with JSON only.";

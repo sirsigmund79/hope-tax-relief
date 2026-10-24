@@ -73,7 +73,7 @@ export default function PacketView({
       const a = document.createElement("a");
       a.href = url;
       if (open) a.target = "_blank";
-      else a.download = `2026-HOPE-application-${(application.adults[0]?.name || "draft").replace(/\W+/g, "-")}.pdf`;
+      else a.download = `2026-HOPE-application-${(application.people[0]?.name || "draft").replace(/\W+/g, "-")}.pdf`;
       a.click();
     } catch {
       setGen({ kind: "error" });
@@ -81,7 +81,7 @@ export default function PacketView({
   }
 
   const fourEightyEights = [
-    ...(plan.applicant4988 ? [application.adults[0].name] : []),
+    ...(plan.applicant4988 ? [application.people[0].name] : []),
     ...plan.extra4988Names,
   ];
   const incomeRows = ["First", "Second", "Third"].map((o) => ({
@@ -90,25 +90,32 @@ export default function PacketView({
   })).filter((r) => r.source);
   const occupants = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth"].map((o, i) => ({
     name: i === 0 ? t["Petitioner's Name"] : t[`${o} household occupant. First and last name`],
+    age: t[`${o} household occupant. age`],
+    relationship: t[`${o} household occupant. Relationship to applicant`],
     employer: t[`${o} household occupant. Place of employment`],
     contribution: t[`${o} household occupant. Financial contribution to family income`],
   })).filter((r) => r.name);
 
+  // What only the applicant can do, plus anything left unanswered. Everything else is filled in.
+  const d = application;
   const todo = [
     ...(!t["Daytime Phone Number"] ? ["Part 1: daytime phone number"] : []),
     ...(!t["Property Parcel Identification Number"] ? ["Part 2: parcel number (on your tax bill)"] : []),
-    "Part 1: ages, marital status, number of legal dependents",
-    "Part 2: mortgage company and balance, time at this residence, property description",
-    "Part 3: check both boxes (you own it, and it's your homestead). Only you can affirm this",
-    "Part 4: any other property anyone in the home owns",
-    "Part 7: list each bank account separately (we filled in the total)",
-    "Parts 8, 9, 11, 12: life insurance, vehicles, debts, monthly expenses (write N/A if none)",
-    `Part 10: ages and relationships${input.householdSize > input.adults.length ? ", and add the children in the home" : ""}`,
-    "Part 13: check the policy and guidelines box",
+    "Part 2: property description (the legal description on your deed)",
+    ...(d.mortgage === undefined ? ["Part 2: mortgage details"] : []),
+    ...(d.employer ? ["Part 5: employer contact person and phone"] : []),
+    ...(d.accounts === undefined ? ["Part 7: bank accounts"] : []),
+    ...(d.vehicles === undefined || d.policies === undefined ? ["Parts 8 and 9: life insurance and vehicles"] : []),
+    ...(d.debts === undefined || d.expenses === undefined ? ["Parts 11 and 12: debts and monthly expenses"] : []),
+    ...(!d.reviewedGuidelines ? ["Part 13: check the policy and guidelines box"] : []),
     "Part 15: sign and date",
     ...fourEightyEights.map((n) => `Form 4988: ${n} signs and dates`),
+    ...(plan.include2368 ? ["Form 2368: last four digits of your Social Security number, co-owner (if any), sign and date"] : []),
     ...plan.over4988Capacity.map((n) => `Print one more Form 4988 for ${n} (the PDF has room for four)`),
+    ...plan.overflow,
   ];
+  const filledCount = Object.keys(t).length + Object.keys(plan.checks).length;
+  const debtCount = Object.keys(t).filter((k) => k.endsWith("personal debt. Creditor") && t[k] !== "N/A").length;
 
   const attachments = items.flatMap((i) => (i.attachments ?? []).filter((a) => a.image).map((a) => ({ ...a, owner: i.person })));
   const toBring = items.filter((i) => i.status === "todo" && i.kind !== "application");
@@ -144,17 +151,24 @@ export default function PacketView({
         <p className="mt-2 text-xs text-blue-900">Submit by <b>{DEADLINE_LABEL}</b>, in person, online, or by mail.</p>
       </div>
 
-      <Page title="Form 5737 · what we filled in" subtitle="Preview of the official application. Blue = filled in for you. You can still edit every field in the PDF.">
+      <Page title="Form 5737 · what we filled in" subtitle={`We filled in ${filledCount} fields and boxes for you. Blue = filled in. You can still edit every field in the PDF.`}>
         <Part title="Part 1: Personal information">
           <div className="grid grid-cols-2 gap-x-3">
             <Box label="Petitioner's name" value={t["Petitioner's Name"]} />
             <Box label="Daytime phone" value={t["Daytime Phone Number"]} />
+            <Box label="Age / marital status" value={[t["Age of Petitioner"], t["Marital Status"]].filter(Boolean).join(" · ")} />
+            <Box label="Legal dependents" value={t["Number of Legal Decendents"]} />
             <Box label="Property address" value={t["Property Address of Principal Residence"]} />
             <Box label="City / State / ZIP" value={[t["Principal Residence City"], t["Principal Residence State"], t["Principle Residence ZIP Code"]].filter(Boolean).join(" ")} />
           </div>
         </Part>
         <Part title="Part 2: Real estate">
-          <Box label="Parcel identification number" value={t["Property Parcel Identification Number"]} />
+          <div className="grid grid-cols-2 gap-x-3">
+            <Box label="Parcel identification number" value={t["Property Parcel Identification Number"]} />
+            <Box label="Time at this residence" value={t["length of time at this residence"]} />
+            <Box label="Mortgage company" value={t["Name of Mortgage Company"]} />
+            <Box label="Unpaid balance / monthly" value={[t["Unpaid Balance owed on principal residence"], t["monthly payment"]].filter(Boolean).join(" · ")} />
+          </div>
         </Part>
         {t["Name of employer"] && (
           <Part title="Part 5: Employment">
@@ -173,12 +187,23 @@ export default function PacketView({
           )}
         </Part>
         <Part title="Part 7: Checking, savings, investments">
-          <Box label="Amount on deposit (total)" value={t["First item. Amount on deposit"]} />
+          {["First", "Second", "Third"].filter((o) => t[`${o} item. Name of financial institution or investments`]).map((o) => (
+            <Box key={o} label={t[`${o} item. Name on account`] || "Account"} value={[t[`${o} item. Name of financial institution or investments`], t[`${o} item. Amount on deposit`] ?? t[`${o} item. Value of investment`]].filter(Boolean).join(" · ")} />
+          ))}
+          {!t["First item. Name of financial institution or investments"] && <Box label="Accounts" />}
+        </Part>
+        <Part title="Parts 8–12: insurance, vehicles, debts, expenses">
+          <div className="grid grid-cols-2 gap-x-3">
+            <Box label="Life insurance" value={t["First life insurance. Name of insured"]} />
+            <Box label="Vehicles" value={[t["First vehicle. Make"], t["Second vehicle. Make"]].filter(Boolean).join(", ")} />
+            <Box label="Debts" value={t["First personal debt. Creditor"] === "N/A" ? "N/A" : debtCount ? `${debtCount} listed` : undefined} />
+            <Box label="Monthly expenses" value={t["Monthly Expense Information. Heating"] ? "Filled in (blanks as N/A)" : undefined} />
+          </div>
         </Part>
         <Part title="Part 10: Household occupants">
           {occupants.map((o, i) => (
             <div key={i} className="grid grid-cols-[1fr_auto] gap-3 border-b border-dotted border-slate-300 py-1 font-medium text-blue-800 last:border-0">
-              <span className="min-w-0 truncate">{o.name}{i === 0 && <span className="ml-1 text-[10px] text-slate-500">SELF</span>}{o.employer && <span className="ml-1 text-[11px] font-normal text-slate-600">· {o.employer}</span>}</span>
+              <span className="min-w-0 truncate">{o.name}<span className="ml-1 text-[11px] font-normal text-slate-600">{[o.age, i === 0 ? "SELF" : o.relationship, o.employer].filter(Boolean).join(" · ")}</span></span>
               <span>{o.contribution}</span>
             </div>
           ))}

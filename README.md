@@ -3,12 +3,14 @@
 A mobile-friendly web app that helps Detroit homeowners see whether they likely qualify for the
 **HOPE** (Homeowners Property Exemption) property tax exemption, from a few photos.
 
-1. Enter household size, address, savings, and your tax bill (or scan the bill).
-2. Photograph each adult's income document (W-2, SSA-1099, paystub).
-3. Gemma 4 reads each photo and returns structured JSON. **The model only extracts; it never decides.**
-4. A deterministic, unit-tested rules engine (`lib/hope.ts`) computes the exemption tier.
-5. Requirements, income limits and estimated savings are shown up front; a packet tracker fills in as documents are added.
-6. Results: tier (or what blocks it), before → after tax bill, flags, and a visual, printable packet with a pre-filled draft HOPE application.
+Built to the GOV.UK [Structuring forms](https://www.gov.uk/service-manual/design/form-structure) guidance:
+
+1. **Check if you can apply**: 5 eligibility questions first (own and live there, household size, assets, income band, tax bill), with stop pages so people who can't apply find out right away.
+2. **Task list** of short sections: your home, about you, people in your home, income, savings and property, debts and expenses. One question per page, with branching so a "no" skips the follow-ups.
+3. **Photos instead of typing**: the tax bill fills address, parcel, PRE and amounts; W-2/SSA-1099/paystubs fill income and employer; bank and mortgage statements fill Parts 2 and 7. Gemma 4 only reads documents. The rules engine (`lib/hope.ts`) decides.
+4. **Check your answers** with Change links, then the **official 2026 HOPE application PDF**, filled in.
+
+Every input the PDF asks for, and how the app gets it, is in [`docs/question-protocol.md`](docs/question-protocol.md).
 
 > Income limits, the asset cap and the deadline in `lib/config.ts` come from the City of Detroit **2026 HOPE
 > Application**. This tool gives an estimate, not a decision; the Board of Review decides.
@@ -35,10 +37,13 @@ Check the model connection: `npm run probe -- public/samples/w2-john-doe.png`
 
 ## Demo
 
-Synthetic documents live at `/samples`, with ready-made screenshots in `public/samples/`.
-Household of 2, $3,000 savings, $2,100 bill, $4,800 delinquent →
-upload `ssa-1099-jane-doe.png` for Jane, nothing for John →
-**100% exemption, $2,100 → $0**, Form 4988 flag for John, DTRF card, packet checklist.
+Synthetic documents live at `/samples`, with ready-made images in `public/samples/` (in mock mode the
+filename picks the result: `tax-bill`, `ssa`, `w2`, `bank`, `mortgage`, `crop`).
+
+Own and live there → 2 people → assets no → "$26,015 or less" → scan `tax-bill-sample.png` →
+**"You could save about $2,100 a year"**. Then: Your home (bill already read; scan `mortgage-statement-jane-doe.png`),
+About you (name comes from the bill), People (John Doe, 70, Spouse), Income (`ssa-1099-jane-doe.png` for Jane; John has no income),
+Savings (`bank-statement-jane-doe.png`), Debts and expenses → Check your answers → download the filled PDF.
 Upload `w2-cropped-john-doe.png` to show the "cut off, retake" path.
 
 ## Reliability

@@ -79,6 +79,31 @@ export default function Samples() {
         </div>
         <div className="mt-2 text-[10px]">Delinquent amounts are payable to the Wayne County Treasurer. This is a fictional bill for demonstration.</div>
       </Doc>
+      <Doc id="bank-statement">
+        <div className="mb-3">
+          <div className="text-lg font-bold">EXAMPLE COMMUNITY CREDIT UNION (FAKE) · Monthly Statement</div>
+          <div className="text-xs">Statement period: 09/01/2026 – 09/30/2026 · Member: JANE DOE · Account: XXXX-XX12</div>
+        </div>
+        <div className="grid grid-cols-3 gap-0">
+          <Box label="Beginning balance" value="$2,940.12" />
+          <Box label="Deposits" value="$1,200.00" />
+          <Box label="Withdrawals" value="$1,140.12" />
+          <Box label="Ending balance" value="$3,000.00" className="col-span-2 bg-yellow-50" />
+          <Box label="Dividend rate" value="0.10%" />
+        </div>
+      </Doc>
+
+      <Doc id="mortgage-statement">
+        <div className="mb-3">
+          <div className="text-lg font-bold">SAMPLE HOME LOANS (FAKE) · Mortgage Statement</div>
+          <div className="text-xs">Borrower: JANE DOE · Property: 1234 EXAMPLE ST, DETROIT MI 48200 · Loan: XXXXXX789</div>
+        </div>
+        <div className="grid grid-cols-3 gap-0">
+          <Box label="Payment due 11/01/2026" value="$412.00" className="bg-yellow-50" />
+          <Box label="Unpaid principal balance" value="$18,400.00" className="bg-yellow-50" />
+          <Box label="Interest rate" value="4.125%" />
+        </div>
+      </Doc>
     </main>
   );
 }
