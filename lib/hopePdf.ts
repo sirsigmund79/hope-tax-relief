@@ -9,7 +9,7 @@ export { HOPE_PDF_PATH, planFill, type ApplicationData, type ApplicationPerson, 
 function removePages(doc: PDFDocument, form: PDFForm, indexes: number[]) {
   const doomed = new Set<PDFRef>();
   for (const i of indexes) {
-    const annots = doc.getPage(i).node.lookup(PDFName.of("Annots"), PDFArray);
+    const annots = doc.getPage(i).node.lookupMaybe(PDFName.of("Annots"), PDFArray);
     annots?.asArray().forEach((a) => a instanceof PDFRef && doomed.add(a));
   }
   for (const field of form.getFields()) {
@@ -37,7 +37,8 @@ function selectButton(form: PDFForm, name: string, state: string) {
   const af = form.getField(name).acroField;
   let chosen: PDFName | undefined;
   for (const w of af.getWidgets()) {
-    const normal = w.dict.lookup(PDFName.of("AP"), PDFDict)?.lookup(PDFName.of("N"), PDFDict);
+    const n = w.dict.lookupMaybe(PDFName.of("AP"), PDFDict)?.lookup(PDFName.of("N"));
+    const normal = n instanceof PDFDict ? n : undefined; // a plain button has one appearance stream, no states
     const on = normal?.keys().find((k) => k.asString() !== "/Off" && (state === "*" || k.asString() === `/${state}`));
     w.dict.set(PDFName.of("AS"), on ?? PDFName.of("Off"));
     chosen ??= on;

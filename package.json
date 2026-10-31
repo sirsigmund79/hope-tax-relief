@@ -8,7 +8,8 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "probe": "tsx scripts/probe-gemma.ts"
+    "probe": "tsx scripts/probe-gemma.ts",
+    "fields": "tsx scripts/pdf-field-map.ts"
   },
   "dependencies": {
     "@google/genai": "^2.31.0",

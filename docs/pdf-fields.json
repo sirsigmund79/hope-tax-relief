@@ -1,0 +1,3598 @@
+[
+ {
+  "name": "Reset",
+  "type": "Button",
+  "pages": [
+   9,
+   13
+  ],
+  "rect": [
+   489,
+   747,
+   85,
+   24
+  ],
+  "states": [],
+  "filled": false,
+  "source": "PDF's own reset button. Never touch."
+ },
+ {
+  "name": "Petitioner's Name",
+  "type": "TextField",
+  "pages": [
+   9,
+   17,
+   18,
+   11,
+   12,
+   13,
+   15,
+   16
+  ],
+  "rect": [
+   40,
+   543,
+   353,
+   17
+  ],
+  "filled": true,
+  "source": "people[0].name (About you › name; pre-filled from tax bill owner). Shared: 5 pages"
+ },
+ {
+  "name": "Daytime Phone Number",
+  "type": "TextField",
+  "pages": [
+   9,
+   18,
+   13,
+   16
+  ],
+  "rect": [
+   400,
+   543,
+   172,
+   17
+  ],
+  "filled": true,
+  "source": "phone (About you › contact). Shared"
+ },
+ {
+  "name": "Age of Petitioner",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   40,
+   519,
+   126,
+   17
+  ],
+  "filled": true,
+  "source": "people[0].age"
+ },
+ {
+  "name": "Marital Status",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   171,
+   519,
+   126,
+   17
+  ],
+  "filled": true,
+  "source": "maritalStatus"
+ },
+ {
+  "name": "Age of Spouse",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   304,
+   519,
+   126,
+   17
+  ],
+  "filled": true,
+  "source": "derived: age of the person whose relationship is Spouse; N/A if not married"
+ },
+ {
+  "name": "Number of Legal Decendents",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   436,
+   519,
+   126,
+   17
+  ],
+  "filled": true,
+  "source": "derived: count of people under 18 (approximation)"
+ },
+ {
+  "name": "Property Address of Principal Residence",
+  "type": "TextField",
+  "pages": [
+   9,
+   17,
+   18,
+   19,
+   20,
+   21,
+   13,
+   15,
+   16
+  ],
+  "rect": [
+   40,
+   495,
+   258,
+   17
+  ],
+  "filled": true,
+  "source": "address, split by lib/address.ts (tax bill photo or typed). Shared"
+ },
+ {
+  "name": "Principal Residence City",
+  "type": "TextField",
+  "pages": [
+   9,
+   17,
+   19,
+   20,
+   21,
+   15,
+   16
+  ],
+  "rect": [
+   305,
+   495,
+   146,
+   17
+  ],
+  "filled": true,
+  "source": "address, split by lib/address.ts (tax bill photo or typed). Shared"
+ },
+ {
+  "name": "Principal Residence State",
+  "type": "TextField",
+  "pages": [
+   9,
+   17,
+   19,
+   20,
+   21,
+   15,
+   16
+  ],
+  "rect": [
+   460,
+   495,
+   29,
+   17
+  ],
+  "filled": true,
+  "source": "address, split by lib/address.ts (tax bill photo or typed). Shared"
+ },
+ {
+  "name": "Principle Residence ZIP Code",
+  "type": "TextField",
+  "pages": [
+   9,
+   17,
+   19,
+   20,
+   21,
+   15,
+   16
+  ],
+  "rect": [
+   495,
+   495,
+   77,
+   17
+  ],
+  "filled": true,
+  "source": "address, split by lib/address.ts (tax bill photo or typed). Shared"
+ },
+ {
+  "name": "Property Parcel Identification Number",
+  "type": "TextField",
+  "pages": [
+   9,
+   18,
+   13,
+   15
+  ],
+  "rect": [
+   40,
+   419,
+   257,
+   17
+  ],
+  "filled": true,
+  "source": "parcelNumber (tax bill photo or typed). Shared"
+ },
+ {
+  "name": "Name of Mortgage Company",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   305,
+   419,
+   257,
+   17
+  ],
+  "filled": true,
+  "source": "mortgage (mortgage statement photo or typed); N/A if no mortgage"
+ },
+ {
+  "name": "Unpaid Balance owed on principal residence",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   40,
+   395,
+   172,
+   17
+  ],
+  "filled": true,
+  "source": "mortgage (mortgage statement photo or typed); N/A if no mortgage"
+ },
+ {
+  "name": "monthly payment",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   220,
+   395,
+   172,
+   17
+  ],
+  "filled": true,
+  "source": "mortgage (mortgage statement photo or typed); N/A if no mortgage"
+ },
+ {
+  "name": "length of time at this residence",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   400,
+   395,
+   172,
+   17
+  ],
+  "filled": true,
+  "source": "derived from movedIn (month/year)"
+ },
+ {
+  "name": "property description",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   40,
+   296,
+   531,
+   93
+  ],
+  "filled": false,
+  "source": "GAP: legal description is on the deed / assessment roll, not the tax bill. Needs a question or a deed photo."
+ },
+ {
+  "name": "I own the property in which the exemption is being claimed",
+  "type": "CheckBox",
+  "pages": [
+   9
+  ],
+  "rect": [
+   48,
+   260,
+   13,
+   13
+  ],
+  "states": [
+   "/Yes"
+  ],
+  "filled": true,
+  "source": "checked when ownsAndLives = yes (eligibility question 1)"
+ },
+ {
+  "name": "The property in which the exemption is being claimed is used as my homestead. Homestead is generally defined as any dwelling with its land and buildings where a family makes its home",
+  "type": "CheckBox",
+  "pages": [
+   9
+  ],
+  "rect": [
+   48,
+   237,
+   13,
+   13
+  ],
+  "states": [
+   "/Yes"
+  ],
+  "filled": true,
+  "source": "checked when ownsAndLives = yes (eligibility question 1)"
+ },
+ {
+  "name": "Check if you own, or are buying, other property. If checked, complete the information below",
+  "type": "CheckBox",
+  "pages": [
+   9
+  ],
+  "rect": [
+   48,
+   153,
+   13,
+   12
+  ],
+  "states": [
+   "/Check#20if#20you#20own,#20or#20are#20buying,#20other#20property.#20If#20checked,#20complete#20the#20information#20below."
+  ],
+  "filled": true,
+  "source": "checked when otherProperties has rows"
+ },
+ {
+  "name": "Amount of income earned from other property",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   400,
+   147,
+   172,
+   17
+  ],
+  "filled": false,
+  "source": "GAP: no question yet (ask on other-property-list)."
+ },
+ {
+  "name": "First property address",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   64,
+   120,
+   231,
+   17
+  ],
+  "filled": true,
+  "source": "otherProperties rows (address split by lib/address.ts); N/A when none"
+ },
+ {
+  "name": "First property city",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   304,
+   120,
+   149,
+   17
+  ],
+  "filled": true,
+  "source": "otherProperties rows (address split by lib/address.ts); N/A when none"
+ },
+ {
+  "name": "First property state",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   459,
+   120,
+   30,
+   17
+  ],
+  "filled": true,
+  "source": "otherProperties rows (address split by lib/address.ts); N/A when none"
+ },
+ {
+  "name": "First property ZIP Code",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   495,
+   120,
+   78,
+   17
+  ],
+  "filled": true,
+  "source": "otherProperties rows (address split by lib/address.ts); N/A when none"
+ },
+ {
+  "name": "First property assessed value",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   304,
+   97,
+   89,
+   17
+  ],
+  "filled": true,
+  "source": "otherProperties rows (address split by lib/address.ts); N/A when none"
+ },
+ {
+  "name": "First property. Name of Owners",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   64,
+   96,
+   232,
+   17
+  ],
+  "filled": true,
+  "source": "otherProperties rows (address split by lib/address.ts); N/A when none"
+ },
+ {
+  "name": "First property date of last taxes paid",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   400,
+   96,
+   89,
+   17
+  ],
+  "filled": true,
+  "source": "otherProperties rows (address split by lib/address.ts); N/A when none"
+ },
+ {
+  "name": "First property. Amount of taxes paid",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   496,
+   96,
+   77,
+   17
+  ],
+  "filled": true,
+  "source": "otherProperties rows (address split by lib/address.ts); N/A when none"
+ },
+ {
+  "name": "Second property address",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   64,
+   72,
+   231,
+   17
+  ],
+  "filled": true,
+  "source": "otherProperties rows (address split by lib/address.ts); N/A when none"
+ },
+ {
+  "name": "Second property city",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   304,
+   72,
+   149,
+   17
+  ],
+  "filled": true,
+  "source": "otherProperties rows (address split by lib/address.ts); N/A when none"
+ },
+ {
+  "name": "Second property state",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   458,
+   72,
+   30,
+   17
+  ],
+  "filled": true,
+  "source": "otherProperties rows (address split by lib/address.ts); N/A when none"
+ },
+ {
+  "name": "Second property ZIP Code",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   495,
+   72,
+   78,
+   17
+  ],
+  "filled": true,
+  "source": "otherProperties rows (address split by lib/address.ts); N/A when none"
+ },
+ {
+  "name": "Second property. Name of Owners",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   63,
+   48,
+   232,
+   17
+  ],
+  "filled": true,
+  "source": "otherProperties rows (address split by lib/address.ts); N/A when none"
+ },
+ {
+  "name": "Second property assessed value",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   304,
+   48,
+   89,
+   17
+  ],
+  "filled": true,
+  "source": "otherProperties rows (address split by lib/address.ts); N/A when none"
+ },
+ {
+  "name": "Second property date of last taxes paid",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   400,
+   48,
+   89,
+   17
+  ],
+  "filled": true,
+  "source": "otherProperties rows (address split by lib/address.ts); N/A when none"
+ },
+ {
+  "name": "Second property. Amount of taxes paid",
+  "type": "TextField",
+  "pages": [
+   9
+  ],
+  "rect": [
+   495,
+   48,
+   77,
+   17
+  ],
+  "filled": true,
+  "source": "otherProperties rows (address split by lib/address.ts); N/A when none"
+ },
+ {
+  "name": "Name of employer",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   41,
+   692,
+   528,
+   17
+  ],
+  "filled": true,
+  "source": "people[0] W-2 box c (employerName, employerAddress); N/A if no wage income"
+ },
+ {
+  "name": "Address of employer",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   40,
+   669,
+   255,
+   17
+  ],
+  "filled": true,
+  "source": "people[0] W-2 box c (employerName, employerAddress); N/A if no wage income"
+ },
+ {
+  "name": "City of employer",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   305,
+   669,
+   149,
+   17
+  ],
+  "filled": true,
+  "source": "people[0] W-2 box c (employerName, employerAddress); N/A if no wage income"
+ },
+ {
+  "name": "State of employer",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   460,
+   669,
+   32,
+   17
+  ],
+  "filled": true,
+  "source": "people[0] W-2 box c (employerName, employerAddress); N/A if no wage income"
+ },
+ {
+  "name": "ZIP code of employer",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   497,
+   669,
+   77,
+   17
+  ],
+  "filled": true,
+  "source": "people[0] W-2 box c (employerName, employerAddress); N/A if no wage income"
+ },
+ {
+  "name": "Contact person of employer",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   41,
+   645,
+   255,
+   17
+  ],
+  "filled": false,
+  "source": "GAP: no question yet; not on a W-2."
+ },
+ {
+  "name": "employer telephone number",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   305,
+   644,
+   267,
+   17
+  ],
+  "filled": false,
+  "source": "GAP: no question yet; not on a W-2."
+ },
+ {
+  "name": "First income. Amount. Indicate whether monthly or annual",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   402,
+   518,
+   173,
+   17
+  ],
+  "filled": true,
+  "source": "income documents for all adults; 3 rows, extras folded into row 3; written as annual"
+ },
+ {
+  "name": "First source of income",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   41,
+   517,
+   351,
+   17
+  ],
+  "filled": true,
+  "source": "income documents for all adults; 3 rows, extras folded into row 3; written as annual"
+ },
+ {
+  "name": "Second source of income",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   40,
+   493,
+   351,
+   17
+  ],
+  "filled": true,
+  "source": "income documents for all adults; 3 rows, extras folded into row 3; written as annual"
+ },
+ {
+  "name": "Second income. Amount. Indicate whether monthly or annual",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   401,
+   493,
+   173,
+   17
+  ],
+  "filled": true,
+  "source": "income documents for all adults; 3 rows, extras folded into row 3; written as annual"
+ },
+ {
+  "name": "Third income. Amount. Indicate whether monthly or annual",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   402,
+   470,
+   173,
+   17
+  ],
+  "filled": true,
+  "source": "income documents for all adults; 3 rows, extras folded into row 3; written as annual"
+ },
+ {
+  "name": "Third source of income",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   41,
+   469,
+   351,
+   17
+  ],
+  "filled": true,
+  "source": "income documents for all adults; 3 rows, extras folded into row 3; written as annual"
+ },
+ {
+  "name": "First item. Name of financial institution or investments",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   40,
+   353,
+   162,
+   17
+  ],
+  "filled": true,
+  "source": "accounts rows (bank statement photo or typed); N/A when none"
+ },
+ {
+  "name": "First item. Amount on deposit",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   208,
+   353,
+   78,
+   17
+  ],
+  "filled": true,
+  "source": "accounts rows (bank statement photo or typed); N/A when none"
+ },
+ {
+  "name": "First item. Current interest rate",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   291,
+   353,
+   55,
+   17
+  ],
+  "filled": true,
+  "source": "UI GAP: mapped from accounts[].interestRate, but no page asks for it yet, so it is always blank"
+ },
+ {
+  "name": "First item. Name on account",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   352,
+   353,
+   137,
+   17
+  ],
+  "filled": true,
+  "source": "accounts rows (bank statement photo or typed); N/A when none"
+ },
+ {
+  "name": "First item. Value of investment",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   496,
+   353,
+   78,
+   17
+  ],
+  "filled": true,
+  "source": "accounts rows (bank statement photo or typed); N/A when none"
+ },
+ {
+  "name": "Second item. Name of financial institution or investments",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   39,
+   330,
+   162,
+   17
+  ],
+  "filled": true,
+  "source": "accounts rows (bank statement photo or typed); N/A when none"
+ },
+ {
+  "name": "Second item. Amount on deposit",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   207,
+   330,
+   78,
+   17
+  ],
+  "filled": true,
+  "source": "accounts rows (bank statement photo or typed); N/A when none"
+ },
+ {
+  "name": "Second item. Current interest rate",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   291,
+   329,
+   55,
+   17
+  ],
+  "filled": true,
+  "source": "UI GAP: mapped from accounts[].interestRate, but no page asks for it yet, so it is always blank"
+ },
+ {
+  "name": "Second item. Name on account",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   351,
+   329,
+   137,
+   17
+  ],
+  "filled": true,
+  "source": "accounts rows (bank statement photo or typed); N/A when none"
+ },
+ {
+  "name": "Second item. Value of investment",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   495,
+   329,
+   78,
+   17
+  ],
+  "filled": true,
+  "source": "accounts rows (bank statement photo or typed); N/A when none"
+ },
+ {
+  "name": "Third item. Name of financial institution or investments",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   40,
+   305,
+   162,
+   17
+  ],
+  "filled": true,
+  "source": "accounts rows (bank statement photo or typed); N/A when none"
+ },
+ {
+  "name": "Third item. Amount on deposit",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   209,
+   305,
+   78,
+   17
+  ],
+  "filled": true,
+  "source": "accounts rows (bank statement photo or typed); N/A when none"
+ },
+ {
+  "name": "Third item. Current interest rate",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   292,
+   305,
+   55,
+   17
+  ],
+  "filled": true,
+  "source": "UI GAP: mapped from accounts[].interestRate, but no page asks for it yet, so it is always blank"
+ },
+ {
+  "name": "Third item. Name on account",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   352,
+   305,
+   137,
+   17
+  ],
+  "filled": true,
+  "source": "accounts rows (bank statement photo or typed); N/A when none"
+ },
+ {
+  "name": "Third item. Value of investment",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   496,
+   305,
+   78,
+   17
+  ],
+  "filled": true,
+  "source": "accounts rows (bank statement photo or typed); N/A when none"
+ },
+ {
+  "name": "First life insurance. Name of insured",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   38,
+   236,
+   116,
+   17
+  ],
+  "filled": true,
+  "source": "policies rows; N/A when none"
+ },
+ {
+  "name": "First life insurance. Amount of policy",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   159,
+   236,
+   68,
+   17
+  ],
+  "filled": true,
+  "source": "policies rows; N/A when none"
+ },
+ {
+  "name": "First life insurance. Name of beneficiary",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   375,
+   236,
+   114,
+   17
+  ],
+  "filled": true,
+  "source": "policies rows; N/A when none"
+ },
+ {
+  "name": "First life insurance. Monthly payments",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   231,
+   235,
+   68,
+   17
+  ],
+  "filled": true,
+  "source": "policies rows; N/A when none"
+ },
+ {
+  "name": "First life insurance. Policy paid in full",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   302,
+   235,
+   69,
+   17
+  ],
+  "filled": true,
+  "source": "policies rows; N/A when none"
+ },
+ {
+  "name": "First life insurance. Relationship to insured",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   495,
+   235,
+   81,
+   17
+  ],
+  "filled": true,
+  "source": "policies rows; N/A when none"
+ },
+ {
+  "name": "Second life insurance. Name of insured",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   39,
+   212,
+   116,
+   17
+  ],
+  "filled": true,
+  "source": "policies rows; N/A when none"
+ },
+ {
+  "name": "Second life insurance. Amount of policy",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   160,
+   212,
+   68,
+   17
+  ],
+  "filled": true,
+  "source": "policies rows; N/A when none"
+ },
+ {
+  "name": "Second life insurance. Monthly payments",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   232,
+   212,
+   68,
+   17
+  ],
+  "filled": true,
+  "source": "policies rows; N/A when none"
+ },
+ {
+  "name": "Second life insurance. Name of beneficiary",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   376,
+   212,
+   114,
+   17
+  ],
+  "filled": true,
+  "source": "policies rows; N/A when none"
+ },
+ {
+  "name": "Second life insurance. Relationship to insured",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   495,
+   212,
+   81,
+   17
+  ],
+  "filled": true,
+  "source": "policies rows; N/A when none"
+ },
+ {
+  "name": "Second life insurance. Policy paid in full",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   303,
+   211,
+   69,
+   17
+  ],
+  "filled": true,
+  "source": "policies rows; N/A when none"
+ },
+ {
+  "name": "Third life insurance. Name of insured",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   39,
+   188,
+   116,
+   17
+  ],
+  "filled": true,
+  "source": "policies rows; N/A when none"
+ },
+ {
+  "name": "Third life insurance. Amount of policy",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   159,
+   188,
+   68,
+   17
+  ],
+  "filled": true,
+  "source": "policies rows; N/A when none"
+ },
+ {
+  "name": "Third life insurance. Monthly payments",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   231,
+   188,
+   68,
+   17
+  ],
+  "filled": true,
+  "source": "policies rows; N/A when none"
+ },
+ {
+  "name": "Third life insurance. Policy paid in full",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   303,
+   188,
+   69,
+   17
+  ],
+  "filled": true,
+  "source": "policies rows; N/A when none"
+ },
+ {
+  "name": "Third life insurance. Name of beneficiary",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   375,
+   188,
+   114,
+   17
+  ],
+  "filled": true,
+  "source": "policies rows; N/A when none"
+ },
+ {
+  "name": "Third life insurance. Relationship to insured",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   495,
+   188,
+   81,
+   17
+  ],
+  "filled": true,
+  "source": "policies rows; N/A when none"
+ },
+ {
+  "name": "First vehicle. Make",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   39,
+   84,
+   174,
+   17
+  ],
+  "filled": true,
+  "source": "vehicles rows; N/A when none"
+ },
+ {
+  "name": "First vehicle. Monthly Payment",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   339,
+   84,
+   113,
+   17
+  ],
+  "filled": true,
+  "source": "vehicles rows; N/A when none"
+ },
+ {
+  "name": "First vehicle. Year",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   221,
+   83,
+   113,
+   17
+  ],
+  "filled": true,
+  "source": "vehicles rows; N/A when none"
+ },
+ {
+  "name": "First vehicle. Balance owed",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   459,
+   83,
+   113,
+   17
+  ],
+  "filled": true,
+  "source": "vehicles rows; N/A when none"
+ },
+ {
+  "name": "Second vehicle. Make",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   39,
+   60,
+   174,
+   17
+  ],
+  "filled": true,
+  "source": "vehicles rows; N/A when none"
+ },
+ {
+  "name": "Second vehicle. Monthly Payment",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   340,
+   60,
+   113,
+   17
+  ],
+  "filled": true,
+  "source": "vehicles rows; N/A when none"
+ },
+ {
+  "name": "Second vehicle. Year",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   222,
+   59,
+   113,
+   17
+  ],
+  "filled": true,
+  "source": "vehicles rows; N/A when none"
+ },
+ {
+  "name": "Second vehicle. Balance owed",
+  "type": "TextField",
+  "pages": [
+   10
+  ],
+  "rect": [
+   460,
+   59,
+   113,
+   17
+  ],
+  "filled": true,
+  "source": "vehicles rows; N/A when none"
+ },
+ {
+  "name": "First household occupant. age",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   242,
+   665,
+   56,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "First household occupant. Place of employment",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   386,
+   665,
+   103,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "First household occupant. Financial contribution to family income",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   495,
+   664,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Second household occupant. First and last name",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   39,
+   641,
+   199,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Second household occupant. age",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   242,
+   640,
+   56,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Second household occupant. Relationship to applicant",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   303,
+   640,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Second household occupant. Place of employment",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   386,
+   640,
+   103,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Second household occupant. Financial contribution to family income",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   495,
+   640,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Third household occupant. First and last name",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   39,
+   617,
+   199,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Third household occupant. age",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   243,
+   617,
+   56,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Third household occupant. Relationship to applicant",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   303,
+   617,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Third household occupant. Place of employment",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   387,
+   616,
+   103,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Third household occupant. Financial contribution to family income",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   496,
+   616,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Fourth household occupant. First and last name",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   39,
+   594,
+   199,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Fourth household occupant. age",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   243,
+   593,
+   56,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Fourth household occupant. Relationship to applicant",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   303,
+   593,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Fourth household occupant. Place of employment",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   387,
+   593,
+   103,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Fourth household occupant. Financial contribution to family income",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   496,
+   593,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Fifth household occupant. First and last name",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   39,
+   569,
+   199,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Fifth household occupant. age",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   243,
+   569,
+   56,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Fifth household occupant. Relationship to applicant",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   303,
+   569,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Fifth household occupant. Place of employment",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   387,
+   568,
+   103,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Fifth household occupant. Financial contribution to family income",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   495,
+   568,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Sixth household occupant. First and last name",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   39,
+   546,
+   199,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Sixth household occupant. age",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   243,
+   546,
+   56,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Sixth household occupant. Relationship to applicant",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   303,
+   546,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Sixth household occupant. Place of employment",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   387,
+   545,
+   103,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Sixth household occupant. Financial contribution to family income",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   495,
+   545,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Seventh household occupant. First and last name",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   39,
+   522,
+   199,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Seventh household occupant. age",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   243,
+   522,
+   56,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Seventh household occupant. Relationship to applicant",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   303,
+   521,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Seventh household occupant. Place of employment",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   387,
+   521,
+   103,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Seventh household occupant. Financial contribution to family income",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   495,
+   521,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Eighth household occupant. First and last name",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   40,
+   499,
+   199,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Eighth household occupant. age",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   243,
+   498,
+   56,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Eighth household occupant. Relationship to applicant",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   304,
+   498,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Eighth household occupant. Place of employment",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   387,
+   498,
+   103,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "Eighth household occupant. Financial contribution to family income",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   496,
+   498,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "people list (name, age, relationship); employer and contribution derived from documents; children get no contribution"
+ },
+ {
+  "name": "First personal debt. Creditor",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   39,
+   428,
+   115,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "First personal debt. Purpose of debt",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   159,
+   428,
+   101,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "First personal debt. Date of Debt",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   267,
+   428,
+   56,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "First personal debt. Original Balance",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   326,
+   427,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "First personal debt. Monthly Payment",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   411,
+   427,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "First personal debt. Balance Owed",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   495,
+   427,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Second personal debt. Creditor",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   39,
+   405,
+   115,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Second personal debt. Purpose of debt",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   158,
+   404,
+   101,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Second personal debt. Date of Debt",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   266,
+   404,
+   56,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Second personal debt. Original Balance",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   326,
+   404,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Second personal debt. Balance Owed",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   494,
+   404,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Second personal debt. Monthly Payment",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   411,
+   403,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Third personal debt. Creditor",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   39,
+   381,
+   115,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Third personal debt. Purpose of debt",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   159,
+   380,
+   101,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Third personal debt. Date of Debt",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   267,
+   380,
+   56,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Third personal debt. Original Balance",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   326,
+   380,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Third personal debt. Monthly Payment",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   411,
+   380,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Third personal debt. Balance Owed",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   495,
+   380,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Fourth personal debt. Creditor",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   39,
+   358,
+   115,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Fourth personal debt. Purpose of debt",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   158,
+   357,
+   101,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Fourth personal debt. Date of Debt",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   266,
+   357,
+   56,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Fourth personal debt. Original Balance",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   326,
+   357,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Fourth personal debt. Balance Owed",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   494,
+   357,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Fourth personal debt. Monthly Payment",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   411,
+   356,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Fifth personal debt. Creditor",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   40,
+   333,
+   115,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Fifth personal debt. Purpose of debt",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   160,
+   332,
+   101,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Fifth personal debt. Date of Debt",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   268,
+   332,
+   56,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Fifth personal debt. Original Balance",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   327,
+   332,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Fifth personal debt. Monthly Payment",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   412,
+   332,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Fifth personal debt. Balance Owed",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   495,
+   332,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Sixth personal debt. Creditor",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   38,
+   309,
+   115,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Sixth personal debt. Purpose of debt",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   158,
+   309,
+   101,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Sixth personal debt. Date of Debt",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   266,
+   309,
+   56,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Sixth personal debt. Original Balance",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   325,
+   308,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Sixth personal debt. Monthly Payment",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   410,
+   308,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Sixth personal debt. Balance Owed",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   494,
+   308,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Seventh personal debt. Creditor",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   40,
+   286,
+   115,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Seventh personal debt. Purpose of debt",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   160,
+   285,
+   101,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Seventh personal debt. Date of Debt",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   268,
+   285,
+   56,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Seventh personal debt. Original Balance",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   327,
+   285,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Seventh personal debt. Balance Owed",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   495,
+   285,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Seventh personal debt. Monthly Payment",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   412,
+   284,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Eighth personal debt. Creditor",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   40,
+   262,
+   115,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Eighth personal debt. Purpose of debt",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   160,
+   261,
+   101,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Eighth personal debt. Date of Debt",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   267,
+   261,
+   56,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Eighth personal debt. Original Balance",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   327,
+   260,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Eighth personal debt. Monthly Payment",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   412,
+   260,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Eighth personal debt. Balance Owed",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   495,
+   260,
+   79,
+   17
+  ],
+  "filled": true,
+  "source": "debts rows; N/A when none"
+ },
+ {
+  "name": "Monthly Expense Information. Electric",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   172,
+   183,
+   123,
+   17
+  ],
+  "filled": true,
+  "source": "expenses; blanks written as N/A"
+ },
+ {
+  "name": "Monthly Expense Information. Heating",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   40,
+   182,
+   123,
+   17
+  ],
+  "filled": true,
+  "source": "expenses; blanks written as N/A"
+ },
+ {
+  "name": "Monthly Expense Information. Water",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   304,
+   182,
+   123,
+   17
+  ],
+  "filled": true,
+  "source": "expenses; blanks written as N/A"
+ },
+ {
+  "name": "Monthly Expense Information. Phone",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   436,
+   182,
+   123,
+   17
+  ],
+  "filled": true,
+  "source": "expenses; blanks written as N/A"
+ },
+ {
+  "name": "Monthly Expense Information. Cable",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   41,
+   159,
+   123,
+   17
+  ],
+  "filled": true,
+  "source": "expenses; blanks written as N/A"
+ },
+ {
+  "name": "Monthly Expense Information. Clothing",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   304,
+   159,
+   123,
+   17
+  ],
+  "filled": true,
+  "source": "expenses; blanks written as N/A"
+ },
+ {
+  "name": "Monthly Expense Information. Food",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   172,
+   158,
+   123,
+   17
+  ],
+  "filled": true,
+  "source": "expenses; blanks written as N/A"
+ },
+ {
+  "name": "Monthly Expense Information. Health insurance",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   436,
+   158,
+   123,
+   17
+  ],
+  "filled": true,
+  "source": "expenses; blanks written as N/A"
+ },
+ {
+  "name": "Monthly Expense Information. Garbage",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   41,
+   134,
+   171,
+   17
+  ],
+  "filled": true,
+  "source": "expenses; blanks written as N/A"
+ },
+ {
+  "name": "Monthly Expense Information. Daycare",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   220,
+   134,
+   174,
+   17
+  ],
+  "filled": true,
+  "source": "expenses; blanks written as N/A"
+ },
+ {
+  "name": "Monthly Expense Information. Car expense",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   400,
+   134,
+   172,
+   17
+  ],
+  "filled": true,
+  "source": "expenses; blanks written as N/A"
+ },
+ {
+  "name": "Monthly Expense Information. Other type and amount 1",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   41,
+   110,
+   170,
+   17
+  ],
+  "filled": false,
+  "source": "GAP: no 'other expenses' rows in the expenses page."
+ },
+ {
+  "name": "Monthly Expense Information. Other type and amount 2",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   221,
+   110,
+   170,
+   17
+  ],
+  "filled": false,
+  "source": "GAP: as above."
+ },
+ {
+  "name": "Monthly Expense Information. Other type and amount 3",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   401,
+   110,
+   170,
+   17
+  ],
+  "filled": false,
+  "source": "GAP: as above."
+ },
+ {
+  "name": "Monthly Expense Information. Other type and amount 4",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   42,
+   86,
+   170,
+   17
+  ],
+  "filled": false,
+  "source": "GAP: as above."
+ },
+ {
+  "name": "Monthly Expense Information. Other type and amount 5",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   220,
+   86,
+   170,
+   17
+  ],
+  "filled": false,
+  "source": "GAP: as above."
+ },
+ {
+  "name": "Monthly Expense Information. Other type and amount 6",
+  "type": "TextField",
+  "pages": [
+   11
+  ],
+  "rect": [
+   401,
+   86,
+   170,
+   17
+  ],
+  "filled": false,
+  "source": "GAP: as above."
+ },
+ {
+  "name": "The applicant has reviewed the applicable policy and guidelines adopted by the city or township, including the specific income and asset levels of the claimant and total household income and assets",
+  "type": "CheckBox",
+  "pages": [
+   12
+  ],
+  "rect": [
+   48,
+   512,
+   13,
+   12
+  ],
+  "states": [
+   "/Yes"
+  ],
+  "filled": true,
+  "source": "checked when reviewedGuidelines (checkbox on Check your answers)"
+ },
+ {
+  "name": "Legal designee name",
+  "type": "TextField",
+  "pages": [
+   12
+  ],
+  "rect": [
+   39,
+   459,
+   352,
+   16
+  ],
+  "filled": true,
+  "source": "designee; N/A when none"
+ },
+ {
+  "name": "Daytime telephone number",
+  "type": "TextField",
+  "pages": [
+   12
+  ],
+  "rect": [
+   400,
+   458,
+   172,
+   17
+  ],
+  "filled": true,
+  "source": "designee; N/A when none"
+ },
+ {
+  "name": "Legal designee mailing address",
+  "type": "TextField",
+  "pages": [
+   12
+  ],
+  "rect": [
+   39,
+   435,
+   258,
+   17
+  ],
+  "filled": true,
+  "source": "designee; N/A when none"
+ },
+ {
+  "name": "Legal designee city",
+  "type": "TextField",
+  "pages": [
+   12
+  ],
+  "rect": [
+   304,
+   435,
+   150,
+   17
+  ],
+  "filled": true,
+  "source": "designee; N/A when none"
+ },
+ {
+  "name": "Legal designee ZIP code",
+  "type": "TextField",
+  "pages": [
+   12
+  ],
+  "rect": [
+   495,
+   435,
+   78,
+   17
+  ],
+  "filled": true,
+  "source": "designee; N/A when none"
+ },
+ {
+  "name": "Legal designee state",
+  "type": "TextField",
+  "pages": [
+   12
+  ],
+  "rect": [
+   458,
+   434,
+   32,
+   17
+  ],
+  "filled": true,
+  "source": "designee; N/A when none"
+ },
+ {
+  "name": "Date of certification",
+  "type": "TextField",
+  "pages": [
+   12,
+   17,
+   18,
+   19,
+   20,
+   21
+  ],
+  "rect": [
+   472,
+   357,
+   100,
+   17
+  ],
+  "filled": false,
+  "source": "LEFT FOR APPLICANT: date signed. Shared across 5737 Part 15, every 4988, and the statement page."
+ },
+ {
+  "name": "Check Box2",
+  "type": "CheckBox",
+  "pages": [
+   13
+  ],
+  "rect": [
+   309,
+   596,
+   9,
+   10
+  ],
+  "states": [
+   "/Yes",
+   "/No"
+  ],
+  "filled": true,
+  "source": "Form 2368 fixed values: Detroit, Wayne, 100%, City box, principal residence"
+ },
+ {
+  "name": "County",
+  "type": "TextField",
+  "pages": [
+   13
+  ],
+  "rect": [
+   471,
+   584,
+   103,
+   24
+  ],
+  "filled": true,
+  "source": "Form 2368 fixed values: Detroit, Wayne, 100%, City box, principal residence"
+ },
+ {
+  "name": "Local Unit",
+  "type": "TextField",
+  "pages": [
+   13
+  ],
+  "rect": [
+   356,
+   583,
+   102,
+   23
+  ],
+  "filled": true,
+  "source": "Form 2368 fixed values: Detroit, Wayne, 100%, City box, principal residence"
+ },
+ {
+  "name": "SSN",
+  "type": "TextField",
+  "pages": [
+   13
+  ],
+  "rect": [
+   304,
+   533,
+   46,
+   19
+  ],
+  "filled": false,
+  "source": "NEVER COLLECTED: Form 2368 line 6, owner's last four SSN digits."
+ },
+ {
+  "name": "SSN1",
+  "type": "TextField",
+  "pages": [
+   13
+  ],
+  "rect": [
+   304,
+   511,
+   46,
+   17
+  ],
+  "filled": false,
+  "source": "NEVER COLLECTED: Form 2368 line 9, co-owner's last four SSN digits."
+ },
+ {
+  "name": "Co Owner",
+  "type": "TextField",
+  "pages": [
+   13
+  ],
+  "rect": [
+   48,
+   510,
+   203,
+   17
+  ],
+  "filled": false,
+  "source": "GAP: Form 2368 line 8 co-owner name. Could come from tax bill owner names."
+ },
+ {
+  "name": "Number2",
+  "type": "TextField",
+  "pages": [
+   13
+  ],
+  "rect": [
+   442,
+   510,
+   131,
+   17
+  ],
+  "filled": false,
+  "source": "GAP: Form 2368 line 10 co-owner phone."
+ },
+ {
+  "name": "Date",
+  "type": "TextField",
+  "pages": [
+   13
+  ],
+  "rect": [
+   467,
+   495,
+   107,
+   15
+  ],
+  "filled": true,
+  "source": "Form 2368 line 11: derived from movedIn"
+ },
+ {
+  "name": "Property",
+  "type": "CheckBox",
+  "pages": [
+   13
+  ],
+  "rect": [
+   213,
+   486,
+   7,
+   7
+  ],
+  "states": [
+   "/Yes",
+   "/No"
+  ],
+  "filled": true,
+  "source": "Form 2368 fixed values: Detroit, Wayne, 100%, City box, principal residence"
+ },
+ {
+  "name": "Percentage",
+  "type": "TextField",
+  "pages": [
+   13
+  ],
+  "rect": [
+   468,
+   429,
+   98,
+   18
+  ],
+  "filled": true,
+  "source": "Form 2368 fixed values: Detroit, Wayne, 100%, City box, principal residence"
+ },
+ {
+  "name": "Claimed",
+  "type": "CheckBox",
+  "pages": [
+   13
+  ],
+  "rect": [
+   480,
+   412,
+   12,
+   12
+  ],
+  "states": [
+   "/Yes",
+   "/no"
+  ],
+  "filled": true,
+  "source": "Form 2368 lines 13/16/18: 'No' when otherExemptionElsewhere = no"
+ },
+ {
+  "name": "If Yes",
+  "type": "TextField",
+  "pages": [
+   13
+  ],
+  "rect": [
+   272,
+   394,
+   301,
+   17
+  ],
+  "filled": false,
+  "source": "GAP: Form 2368 line 14 (address + parcel of the other PRE) when line 13 is yes."
+ },
+ {
+  "name": "Recinded",
+  "type": "CheckBox",
+  "pages": [
+   13
+  ],
+  "rect": [
+   480,
+   377,
+   13,
+   13
+  ],
+  "states": [
+   "/Yes",
+   "/No"
+  ],
+  "filled": false,
+  "source": "GAP: Form 2368 line 15 yes/no, only when line 13 is yes."
+ },
+ {
+  "name": "If yes to 16",
+  "type": "CheckBox",
+  "pages": [
+   13
+  ],
+  "rect": [
+   480,
+   358,
+   12,
+   13
+  ],
+  "states": [
+   "/Yes",
+   "/No"
+  ],
+  "filled": true,
+  "source": "Form 2368 lines 13/16/18: 'No' when otherExemptionElsewhere = no"
+ },
+ {
+  "name": "Parcel Number",
+  "type": "TextField",
+  "pages": [
+   13
+  ],
+  "rect": [
+   271,
+   339,
+   305,
+   17
+  ],
+  "filled": false,
+  "source": "GAP: Form 2368 line 17 (out-of-state property) when line 16 is yes."
+ },
+ {
+  "name": "18",
+  "type": "CheckBox",
+  "pages": [
+   13
+  ],
+  "rect": [
+   480,
+   322,
+   14,
+   12
+  ],
+  "states": [
+   "/Yes",
+   "/No"
+  ],
+  "filled": true,
+  "source": "Form 2368 lines 13/16/18: 'No' when otherExemptionElsewhere = no"
+ },
+ {
+  "name": "Text19",
+  "type": "TextField",
+  "pages": [
+   13
+  ],
+  "rect": [
+   156,
+   303,
+   418,
+   17
+  ],
+  "filled": false,
+  "source": "GAP: Form 2368 line 19 (state) when line 18 is yes."
+ },
+ {
+  "name": "Mailing Address",
+  "type": "TextField",
+  "pages": [
+   13
+  ],
+  "rect": [
+   52,
+   167,
+   524,
+   17
+  ],
+  "filled": false,
+  "source": "GAP: Form 2368 line 22, mailing address if different."
+ },
+ {
+  "name": "Dropdown CP List",
+  "type": "Dropdown",
+  "pages": [
+   15,
+   18
+  ],
+  "rect": [
+   261,
+   580,
+   259,
+   19
+  ],
+  "options": [
+   "Self Prepared",
+   "Accounting Aid Society",
+   "Alger Theater",
+   "Bridging Communities",
+   "Central Detroit Christian",
+   "Cody Rouge Comm Action Alliance",
+   "Eastside Community Network",
+   "Greater Quinn AME",
+   "Jefferson East Inc.",
+   "MACC Development",
+   "MIWealth",
+   "Osborn Neighborhood Alliance",
+   "UCHC",
+   "U-SNAP-BAC",
+   "Wayne Metro",
+   "Other"
+  ],
+  "filled": false,
+  "source": "LEFT AT DEFAULT 'Self Prepared'. Shared by the partner letter and statement page. Map if a community partner helps."
+ },
+ {
+  "name": "CP Rep Name",
+  "type": "TextField",
+  "pages": [
+   15
+  ],
+  "rect": [
+   262,
+   554,
+   257,
+   22
+  ],
+  "filled": false,
+  "source": "DROPPED PAGE: partner letter."
+ },
+ {
+  "name": "CP ADDRESS",
+  "type": "TextField",
+  "pages": [
+   15
+  ],
+  "rect": [
+   165,
+   526,
+   357,
+   25
+  ],
+  "filled": false,
+  "source": "DROPPED PAGE: community partner authorization letter (pages 15–16) is removed from the output."
+ },
+ {
+  "name": "CP CITY",
+  "type": "TextField",
+  "pages": [
+   15
+  ],
+  "rect": [
+   139,
+   500,
+   157,
+   25
+  ],
+  "filled": false,
+  "source": "DROPPED PAGE: partner letter."
+ },
+ {
+  "name": "CP STATE",
+  "type": "TextField",
+  "pages": [
+   15
+  ],
+  "rect": [
+   338,
+   500,
+   76,
+   25
+  ],
+  "filled": false,
+  "source": "DROPPED PAGE: partner letter."
+ },
+ {
+  "name": "CP ZIP",
+  "type": "TextField",
+  "pages": [
+   15
+  ],
+  "rect": [
+   438,
+   500,
+   83,
+   25
+  ],
+  "filled": false,
+  "source": "DROPPED PAGE: partner letter."
+ },
+ {
+  "name": "CP PHONE",
+  "type": "TextField",
+  "pages": [
+   15
+  ],
+  "rect": [
+   151,
+   474,
+   184,
+   25
+  ],
+  "filled": false,
+  "source": "DROPPED PAGE: partner letter."
+ },
+ {
+  "name": "CP FAX",
+  "type": "TextField",
+  "pages": [
+   15
+  ],
+  "rect": [
+   370,
+   474,
+   151,
+   25
+  ],
+  "filled": false,
+  "source": "DROPPED PAGE: partner letter."
+ },
+ {
+  "name": "CP EMAIL",
+  "type": "TextField",
+  "pages": [
+   15
+  ],
+  "rect": [
+   149,
+   448,
+   372,
+   25
+  ],
+  "filled": false,
+  "source": "DROPPED PAGE: partner letter."
+ },
+ {
+  "name": "FAX_2",
+  "type": "TextField",
+  "pages": [
+   16
+  ],
+  "rect": [
+   346,
+   510,
+   176,
+   25
+  ],
+  "filled": false,
+  "source": "DROPPED PAGE: partner letter."
+ },
+ {
+  "name": "EMAIL",
+  "type": "TextField",
+  "pages": [
+   16
+  ],
+  "rect": [
+   152,
+   484,
+   370,
+   25
+  ],
+  "filled": false,
+  "source": "DROPPED PAGE: partner letter (applicant email on page 16)."
+ },
+ {
+  "name": "Email",
+  "type": "TextField",
+  "pages": [
+   18
+  ],
+  "rect": [
+   342,
+   711,
+   242,
+   19
+  ],
+  "filled": true,
+  "source": "email (About you › contact)"
+ },
+ {
+  "name": "Hope Statement",
+  "type": "TextField",
+  "pages": [
+   18
+  ],
+  "rect": [
+   37,
+   647,
+   538,
+   25
+  ],
+  "filled": true,
+  "source": "statement (optional, 250 chars)"
+ }
+]

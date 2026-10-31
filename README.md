@@ -38,6 +38,7 @@ npm run dev                  # http://localhost:3000
 Sample documents are in `public/samples/` and at `/samples`, including a real 2026 Detroit summer tax bill with the
 parcel number blacked out (`detroit-summer-tax-bill-2026.jpg`).
 
-`npm test` runs the unit tests. Every field the official PDF asks for, and how the app gets it, is listed in
-[`docs/question-protocol.md`](docs/question-protocol.md). The full-quality demo video is
+`npm test` runs the unit tests. Picking up the work? Start with [`docs/HANDOFF.md`](docs/HANDOFF.md). Every field in
+the official PDF and whether the app fills it is in [`docs/pdf-field-map.md`](docs/pdf-field-map.md) (regenerate with
+`npm run fields`); how the app gets each answer is in [`docs/question-protocol.md`](docs/question-protocol.md). The full-quality demo video is
 [`docs/demo/hope-check-demo.mp4`](docs/demo/hope-check-demo.mp4).
